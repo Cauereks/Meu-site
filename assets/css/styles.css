@@ -1,0 +1,991 @@
+:root {
+  /* Paleta clara */
+  --bg: #ffffff;
+  --bg-2: #f5f9ff;
+  --surface: #ffffff;
+  --surface-2: #f2f7ff;
+  --border: #d9e6ff;
+  --text: #0b1b2b;
+  --muted: #4a6a8c;
+  --primary: #187bff;
+  --primary-600: #0f62d6;
+  --accent: #e8f2ff;
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(18, 63, 120, .12);
+  
+  /* Neve / título */
+  --snow-stroke: rgba(180, 210, 255, .85);
+  --snow-glow: rgba(120, 180, 255, .32);
+}
+
+/* Forçamos o cursor - AGORA APENAS PARA DISPOSITIVOS COM RATO */
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: url("../../images/cursor/NORMAL.cur"), auto !important;
+  }
+
+  /* Cursor para elementos de clique (Mão apontando) */
+  a, 
+  button, 
+  .social-card, 
+  .btn-copy, 
+  .menu-toggle, 
+  [role="button"],
+  .logo,
+  .nav a {
+    cursor: url("../../images/cursor/NORMAL - Tailless.cur"), pointer !important;
+  }
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:
+    radial-gradient(900px 500px at 100% -10%, rgba(24, 123, 255, .06) 0%, transparent 60%),
+    radial-gradient(1100px 600px at 0% 0%, rgba(24, 123, 255, .07) 0%, transparent 60%),
+    var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Canvas de neve */
+#snow {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Helpers */
+.container {
+  width: min(1100px, 92%);
+  margin: 0 auto;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* ===== Header ===== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, .7);
+  border-bottom: 1px solid var(--border);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+}
+
+/* Logo ZUBOOZIN */
+.logo {
+  font-weight: 800;
+  text-decoration: none;
+  color: var(--snow-stroke);
+  letter-spacing: .5px;
+  text-shadow: 0 1px 3px rgba(12, 42, 85, 0.4);
+}
+
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 600;
+}
+
+.nav a:hover {
+  color: var(--primary-600);
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 0;
+  color: var(--text);
+  font-size: 22px;
+}
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  height: 72vh;
+  min-height: 520px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: none !important;
+  z-index: 0;
+}
+
+.hero__frost {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, 0));
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .02);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero h1 {
+  margin: 0 0 10px;
+}
+
+/* TÍTULO CLEAN "NEVE" */
+.title-snow {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: clamp(50px, 9vw, 110px);
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin: 0;
+  background: linear-gradient(
+    to right,
+    #ffffff 20%,
+    var(--snow-stroke) 40%,
+    var(--snow-stroke) 60%,
+    #ffffff 80%
+  );
+  background-size: 200% auto;
+  color: #ffffff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shineIce 4s linear infinite;
+  filter: drop-shadow(0 0 15px var(--snow-glow));
+}
+
+@keyframes shineIce {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* SUBTÍTULO EM PORTUGUÊS */
+.subtitle-pt {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(12px, 2vw, 16px);
+  font-weight: 800;
+  color: var(--snow-stroke);
+  letter-spacing: 0.6em;
+  text-transform: uppercase;
+  margin-top: -10px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(120, 180, 255, 0.4);
+}
+
+/* ===== Seções ===== */
+.section {
+  padding: 72px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.section--alt {
+  background: var(--bg-2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.section__head {
+  margin-bottom: 22px;
+}
+
+.section__head h2 {
+  font-size: clamp(24px, 3.2vw, 32px);
+  margin: 0 0 6px;
+  color: #0c2a55;
+}
+
+/* ====== Cards CS2 & Valorant ====== */
+:root {
+  --wb-bg: #ffffff;
+  --wb-surface: #ffffff;
+  --wb-text: #0b1b2b;
+  --wb-muted: #4a6a8c;
+  --wb-primary: var(--primary, #187bff);
+  --wb-primary-600: var(--primary-600, #0f62d6);
+  --wb-border: var(--border, #d9e6ff);
+  --wb-radius: var(--radius, 14px);
+}
+
+/* Container Lado a Lado para os Jogos */
+.games-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+}
+
+.cs2wb-card {
+  position: relative;
+  width: min(420px, 100%);
+  color: var(--wb-text);
+  border-radius: var(--wb-radius);
+  padding: 20px 20px 18px;
+  overflow: hidden;
+  background:
+    radial-gradient(1200px 520px at 110% -10%, rgba(24, 123, 255, .10) 0%, transparent 55%),
+    radial-gradient(900px 420px at -10% -20%, rgba(24, 123, 255, .08) 0%, transparent 60%),
+    var(--wb-surface);
+  box-shadow: 0 12px 40px rgba(12, 42, 85, .12);
+}
+
+.cs2wb-card::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(120deg, transparent 35%, rgba(255, 255, 255, .55) 50%, transparent 65%);
+  transform: rotate(8deg);
+  animation: cs2wb-shine 6s linear infinite;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+}
+
+@keyframes cs2wb-shine {
+  0% { transform: translateX(-20%) rotate(8deg); opacity: .25; }
+  50% { transform: translateX(20%) rotate(8deg); opacity: .38; }
+  100% { transform: translateX(60%) rotate(8deg); opacity: .25; }
+}
+
+.cs2wb-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(90deg, rgba(24, 123, 255, .45), rgba(24, 123, 255, 0), rgba(24, 123, 255, .45));
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  animation: cs2wb-stroke 9s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes cs2wb-stroke {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+.cs2wb-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.cs2wb-head h2 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.1;
+  letter-spacing: .3px;
+}
+
+.cs2wb-ranks {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--wb-primary-600);
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.cs2wb-rank-badge {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #fff, #f3f8ff);
+  border: 1px solid var(--wb-border);
+  color: var(--wb-primary-600);
+  box-shadow: 0 6px 20px rgba(24, 123, 255, .12);
+}
+
+.cs2wb-rank-badge.faceit {
+  color: #0b3a77;
+  background: linear-gradient(180deg, #eaf3ff, #dff0ff);
+}
+
+.cs2wb-sep {
+  opacity: .5;
+}
+
+.cs2wb-meta {
+  color: var(--wb-muted);
+  font-size: 14px;
+}
+
+.meta-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cs2wb-sep-line {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--wb-border), transparent);
+  margin: 14px 0;
+}
+
+.cs2wb-settings-title {
+  font-size: 11px;
+  letter-spacing: .14em;
+  color: var(--wb-primary-600);
+  margin: 0 0 10px;
+}
+
+.cs2wb-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+}
+
+.cs2wb-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--wb-border);
+}
+
+.cs2wb-row dt {
+  color: var(--wb-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.cs2wb-row dd {
+  margin: 0;
+  font-weight: 800;
+  color: #0c2a55;
+}
+
+/* ===== Footer ===== */
+.footer {
+  border-top: 1px solid var(--border);
+  background: #fff;
+}
+
+.footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 26px 0;
+}
+
+.backtotop {
+  color: var(--primary-600);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+/* ===== Setup Compact (cards) ===== */
+:root {
+  --sc-bg: #ffffff;
+  --sc-border: var(--border);
+  --sc-text: var(--text);
+  --sc-muted: var(--muted);
+  --sc-accent: var(--primary-600);
+  --sc-frost: rgba(24, 123, 255, .08);
+}
+
+.setup-compact {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+@media (max-width: 1200px) {
+  .setup-compact { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 700px) {
+  .setup-compact { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 480px) {
+  .setup-compact { grid-template-columns: 1fr; }
+}
+
+.sc-card {
+  position: relative;
+  border-radius: 12px;
+  padding: 12px 14px 14px 14px;
+  background:
+    radial-gradient(380px 160px at 120% -20%, var(--sc-frost) 0%, transparent 60%),
+    radial-gradient(360px 140px at -10% -30%, var(--sc-frost) 0%, transparent 65%),
+    var(--sc-bg);
+  border: 1px solid var(--sc-border);
+  box-shadow: 0 10px 26px rgba(12, 42, 85, .08);
+  display: flex;
+  flex-direction: column;
+  min-height: auto;
+  overflow: initial;
+}
+
+.sc-head {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  align-items: center;
+  gap: 8px;
+  color: var(--sc-muted);
+}
+
+.sc-ic {
+  filter: drop-shadow(0 2px 6px rgba(24, 123, 255, .18));
+}
+
+.sc-title {
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--sc-accent);
+  white-space: normal;
+  overflow-wrap: break-word;
+  line-height: 1.2;
+}
+
+.sc-main {
+  margin: 0;
+  font-weight: 800;
+  color: var(--sc-text);
+  font-size: 14px;
+  line-height: 1.35;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  hyphens: auto;
+}
+
+.sc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.sc-list li {
+  font-size: 13px;
+  color: var(--sc-text);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+.sc-note {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--sc-muted);
+}
+
+.sc-card:hover {
+  box-shadow: 0 14px 32px rgba(12, 42, 85, .12);
+  transform: translateY(-1px);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+@media (max-width: 480px) {
+  .sc-main { font-size: 13.5px; }
+  .sc-list li { font-size: 12.75px; }
+}
+
+/* ===== Botão Copiar e Feedback ===== */
+.cs2wb-cross {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cs2wb-cross code {
+  background: var(--bg-2);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--wb-border);
+  font-family: monospace;
+  font-size: 13px;
+  color: var(--wb-primary-600);
+  word-break: break-all;
+}
+
+.btn-copy {
+  background: var(--accent);
+  border: 1px solid var(--wb-border);
+  color: var(--wb-primary);
+  border-radius: 6px;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.btn-copy:hover {
+  background: var(--wb-primary);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.cs2wb-feedback {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #10b981;
+  min-height: 20px;
+  margin-top: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cs2wb-feedback.show {
+  opacity: 1;
+}
+
+/* ===== Social Grid ===== */
+.social-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  margin-top: 10px;
+}
+
+.social-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 4px 12px rgba(12, 42, 85, 0.04);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.social-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(24, 123, 255, 0.06), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: 0;
+}
+
+.social-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--muted);
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.social-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.social-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary-600);
+  box-shadow: 0 8px 24px rgba(24, 123, 255, 0.15);
+}
+
+.social-card:hover::before {
+  opacity: 1;
+}
+
+.social-card:hover .social-icon {
+  transform: scale(1.1);
+}
+
+.social-card:hover .youtube { color: #FF0000; }
+.social-card:hover .twitch { color: #9146FF; }
+.social-card:hover .steam { color: #171a21; }
+
+/* ===== Responsivo da navegação (Menu Animado) ===== */
+@media (max-width: 900px) {
+  .menu-toggle {
+    display: block;
+  }
+  
+  .nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0;
+    visibility: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.3s ease, 
+                padding 0.3s ease,
+                visibility 0.4s;
+  }
+
+  .nav.nav--open {
+    max-height: 350px;
+    opacity: 1;
+    padding: 24px 0;
+    visibility: visible;
+    box-shadow: 0 10px 30px rgba(18, 63, 120, 0.08);
+  }
+
+  .nav a {
+    margin: 12px 0;
+    font-size: 18px;
+  }
+}
+
+/* ===== Efeito Rion Snow ===== */
+.hero__avatar-container {
+  display: inline-block;
+  position: relative;
+  margin-top: 20px;
+}
+
+.hero__avatar {
+  width: clamp(150px, 20vw, 250px);
+  height: auto;
+  opacity: 0.92;
+  filter: 
+    brightness(1.4)
+    hue-rotate(-15deg)
+    saturate(0.7)
+    sepia(0.2);
+  filter: drop-shadow(0 0 25px var(--snow-glow)) brightness(1.4) hue-rotate(-15deg) saturate(0.7) sepia(0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.hero__avatar-container:hover .hero__avatar {
+  filter: brightness(1) hue-rotate(0deg) saturate(1.2) sepia(0);
+  opacity: 1;
+  transform: scale(1.03) translateY(-3px);
+}
+
+.hero__avatar-container--boundary {
+  position: absolute; 
+  bottom: -25px;
+  right: 5%; 
+  z-index: 3; 
+  filter: drop-shadow(0 0 20px rgba(120, 180, 255, 0.4));
+  transition: transform 0.3s ease-in-out;
+}
+
+.hero__avatar--boundary {
+  width: clamp(200px, 25vw, 350px); 
+  height: auto;
+  opacity: 0.95;
+  transition: opacity 0.3s ease;
+}
+
+.hero__avatar-container--boundary:hover {
+  transform: scale(1.03) translateY(-8px); 
+}
+
+.hero__avatar-container--boundary:hover .hero__avatar--boundary {
+  opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .hero__avatar-container--boundary {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin-top: 30px;
+    margin-bottom: -40px; 
+  }
+}
+
+/* ===== Status do Discord (Lanyard) - TAMANHO MAIOR ===== */
+.discord-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 15px;
+  padding: 8px 22px 8px 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.discord-status:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.ds-avatar {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.ds-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.ds-indicator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #a3c4f9; 
+}
+
+/* Cores oficiais do Discord */
+.ds-indicator.online { background-color: #23a559; }
+.ds-indicator.idle { background-color: #f0b232; }
+.ds-indicator.dnd { background-color: #f23f43; }
+.ds-indicator.offline { background-color: #80848e; }
+
+.ds-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.ds-name {
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.ds-activity {
+  color: var(--snow-stroke);
+  font-size: 13px;
+  font-weight: 600;
+  max-width: 240px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ===== Seção Setup com Vídeo de Fundo ===== */
+.setup-video-section {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.setup__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Camada escura e desfocada para garantir a leitura dos cards */
+.setup__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 27, 43, 0.65); /* Fundo azul escuro translúcido */
+  backdrop-filter: blur(5px); /* Efeito de vidro no vídeo */
+  z-index: 1;
+}
+
+/* Traz o conteúdo para a frente do vídeo */
+.setup-video-section .setup__container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Deixa o título "Setup (Compacto)" branco para contrastar com o vídeo escuro */
+.setup-video-section .section__head h2 {
+  color: #ffffff;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Ajuste para ícones SVG na seção Setup */
+.sc-ic .svg-icon {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0.8; 
+}
+
+/* Transforma a div colorida no formato do SVG (Máscara) */
+.sc-ic .svg-icon {
+  width: 20px; /* Tamanho exato do ícone */
+  height: 20px;
+  background-color: var(--primary-600); /* Cor azul do seu tema */
+  display: block;
+  
+  /* Configurações da máscara */
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+/* ================================================= */
+/* TEMA ESCURO (DARK)                                */
+/* ================================================= */
+
+/* Variáveis para o modo escuro */
+[data-theme="dark"] {
+  --bg: #0b1120;
+  --bg-2: #111827;
+  --surface: #1e293b;
+  --surface-2: #334155;
+  --border: #334155;
+  --text: #f1f5f9;
+  --muted: #cbd5e1; /* Corrigido para melhor contraste de leitura */
+  --primary: #3b82f6;
+  --primary-600: #60a5fa;
+  --accent: #1e3a8a;
+  --shadow: 0 10px 30px rgba(0, 0, 0, .4);
+
+  /* Neve / Título */
+  --snow-stroke: rgba(180, 210, 255, .9);
+  --snow-glow: rgba(120, 180, 255, .2);
+
+  /* === Setup Compacto (Atenção a cor e opacidade) === */
+  --sc-bg: #151e32; 
+  --sc-border: rgba(255, 255, 255, 0.08); 
+  --sc-frost: rgba(96, 165, 250, 0.12); 
+  
+  /* Cards CS2 e Valorant */
+  --wb-bg: #0b1120;
+  --wb-surface: #151e32;
+  --wb-text: #e2e8f0;
+  --wb-muted: #cbd5e1; /* Corrigido para melhor contraste de leitura */
+  --wb-primary: #3b82f6;
+  --wb-primary-600: #60a5fa;
+  --wb-border: #334155;
+}
+
+/* Sobrescritas para elementos com cores absolutas no CSS original */
+[data-theme="dark"] .header {
+  background: rgba(11, 17, 32, 0.8);
+}
+[data-theme="dark"] .nav {
+  background: rgba(11, 17, 32, 0.95);
+}
+[data-theme="dark"] .section__head h2,
+[data-theme="dark"] .cs2wb-row dd {
+  color: var(--text);
+}
+[data-theme="dark"] .cs2wb-row {
+  background: var(--surface-2);
+}
+[data-theme="dark"] .footer {
+  background: var(--bg);
+}
+[data-theme="dark"] .cs2wb-cross code {
+  background: var(--surface-2);
+}
+[data-theme="dark"] .cs2wb-rank-badge {
+  background: linear-gradient(180deg, var(--surface), var(--bg-2));
+}
+[data-theme="dark"] .cs2wb-rank-badge.faceit {
+  background: linear-gradient(180deg, #1e3a8a, #0f172a);
+  color: #93c5fd;
+}
+[data-theme="dark"] .discord-status {
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+[data-theme="dark"] .setup__overlay {
+  background: rgba(5, 10, 18, 0.8);
+}
+
+/* Estilização do Botão de Alternar Tema (Ícones SVG) */
+.theme-toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  margin-left: 20px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.15) rotate(10deg);
+  color: var(--primary-600);
+}
+
+/* Lógica visual de mostrar/ocultar os ícones consoante o tema ativo */
+.icon-sun { display: none; }
+.icon-moon { display: block; }
+
+[data-theme="dark"] .icon-sun { display: block; }
+[data-theme="dark"] .icon-moon { display: none; }
+
+@media (max-width: 900px) {
+  .theme-toggle-btn {
+    margin: 12px 0;
+  }
+}
