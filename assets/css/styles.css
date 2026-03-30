@@ -989,3 +989,43 @@ body {
     margin: 12px 0;
   }
 }
+
+/* ================================================= */
+/* TRANSIÇÃO SUAVE DE TEMA (LIGHT/DARK)              */
+/* ================================================= */
+
+/* 1. Transição para os elementos principais da página */
+body, 
+.header, 
+.nav, 
+.nav a,
+.section--alt, 
+.footer, 
+.discord-status,
+.cs2wb-row,
+.cs2wb-row dd,
+.cs2wb-row dt,
+.cs2wb-cross code,
+.cs2wb-rank-badge,
+.section__head h2,
+h1, h2, h3, p {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+}
+
+/* 2. Atualização das transições nos cartões Setup (mantendo o hover rápido) */
+.sc-card {
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+/* 3. Atualização das transições nos cartões Sociais (mantendo o hover existente) */
+.social-card {
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.social-card::before {
+  transition: opacity 0.25s ease, background 0.4s ease;
+}
+
+/* 4. Transição para os cartões CS2 e Valorant */
+.cs2wb-card {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
