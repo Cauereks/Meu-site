@@ -827,6 +827,24 @@ body {
   font-size: 16px;
 }
 
+.ds-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espaço entre o nome e os ícones */
+}
+
+.ds-devices {
+  display: flex;
+  gap: 4px; /* Espaço caso esteja em mais de um dispositivo ao mesmo tempo */
+  color: var(--snow-stroke);
+  opacity: 0.8;
+}
+
+.ds-devices svg {
+  width: 14px;
+  height: 14px;
+}
+
 .ds-activity {
   color: var(--snow-stroke);
   font-size: 13px;
