@@ -78,13 +78,29 @@ async function fetchDiscordStatus() {
     if (!data) return;
 
     const pfp = document.getElementById('ds-pfp');
+    const decorationEl = document.getElementById('ds-decoration'); // Pega o novo elemento
     const indicator = document.getElementById('ds-indicator');
     const nameEl = document.getElementById('ds-name');
     const activityEl = document.getElementById('ds-activity');
 
+    // 1. Atualiza o Avatar
     if (data.discord_user.avatar) {
-      pfp.src = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${data.discord_user.avatar}.png`;
+      const isAnimated = data.discord_user.avatar.startsWith('a_');
+      const extension = isAnimated ? 'gif' : 'png';
+      
+      pfp.src = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${data.discord_user.avatar}.${extension}?size=128`;
       pfp.style.display = 'block';
+    }
+
+    // 2. Atualiza a Decoração (Moldura)
+    if (data.discord_user.avatar_decoration_data) {
+      const asset = data.discord_user.avatar_decoration_data.asset;
+      // O Discord usa um endpoint específico para decorações
+      decorationEl.src = `https://cdn.discordapp.com/avatar-decoration-presets/${asset}.png?size=128`;
+      decorationEl.style.display = 'block';
+    } else {
+      // Esconde a moldura caso você tire no Discord
+      decorationEl.style.display = 'none';
     }
 
     nameEl.textContent = data.discord_user.display_name || data.discord_user.username;

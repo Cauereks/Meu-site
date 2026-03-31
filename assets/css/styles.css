@@ -787,6 +787,18 @@ body {
   object-fit: cover;
 }
 
+.ds-decoration {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120% !important; /* Garante que fique maior que o avatar */
+  height: 120% !important;
+  border-radius: 0 !important; /* Tira o corte redondo para não cortar a moldura */
+  object-fit: contain !important; /* Mantém a proporção original do chapéu */
+  pointer-events: none;
+  z-index: 2;
+}
+
 .ds-indicator {
   position: absolute;
   bottom: 0;
