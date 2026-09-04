@@ -1,0 +1,38 @@
+--- index.html	2026-09-04 17:48:24.961593017 +0000
++++ patch/index.html	2026-09-04 17:54:58.495851655 +0000
+@@ -13,7 +13,7 @@
+   <meta property="og:title" content="Zuboozin | Hub">
+   <meta property="og:description" content="Site oficial de Cauê. Setup, downloads e redes sociais.">
+   <meta property="og:image" content="images/rion-snow.png">
+-  <meta property="og:url" content="https://seusite.com">
++  <meta property="og:url" content="https://cauereks.github.io/Meu-site/">
+ 
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+@@ -35,7 +35,7 @@
+   <header class="header">
+     <div class="container header__inner">
+       <a class="logo" href="#inicio" aria-label="Voltar ao início">Zuboozin</a>
+-      <nav class="nav" aria-label="Principal">
++      <nav class="nav" id="nav-principal" aria-label="Principal">
+         <a href="#setup">Setup</a>
+         <a href="#sociais">Sociais</a>
+         <a href="#cs2">CS2</a>
+@@ -60,7 +60,7 @@
+           </svg>
+         </button>
+       </nav>
+-      <button class="menu-toggle" aria-label="Abrir menu">☰</button>
++      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-principal">☰</button>
+     </div>
+   </header>
+ 
+@@ -187,7 +187,7 @@
+     </section>
+ 
+     <section id="setup" class="section setup-video-section">
+-      <video class="setup__video" autoplay muted loop playsinline>
++      <video class="setup__video" autoplay muted loop playsinline poster="images/setup-poster.jpg">
+         <source src="assets/video/0319.mp4" type="video/mp4" />
+       </video>
+       <div class="setup__overlay" aria-hidden="true"></div>

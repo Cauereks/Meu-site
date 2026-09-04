@@ -1,0 +1,43 @@
+--- main.js	2026-09-04 17:48:46.589594303 +0000
++++ patch/main.js	2026-09-04 17:55:02.363883376 +0000
+@@ -11,16 +11,21 @@
+ if (menuToggle && nav) {
+   nav.style.display = '';
+ 
++  const setMenuState = (isOpen) => {
++    nav.classList.toggle('nav--open', isOpen);
++    menuToggle.innerHTML = isOpen ? '✕' : '☰';
++    menuToggle.setAttribute('aria-expanded', String(isOpen));
++    menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
++  };
++
+   menuToggle.addEventListener('click', () => {
+-    nav.classList.toggle('nav--open');
+-    menuToggle.innerHTML = nav.classList.contains('nav--open') ? '✕' : '☰';
++    setMenuState(!nav.classList.contains('nav--open'));
+   });
+ 
+   nav.querySelectorAll('a').forEach(link => {
+     link.addEventListener('click', () => {
+       if (window.innerWidth <= 900) {
+-        nav.classList.remove('nav--open');
+-        menuToggle.innerHTML = '☰';
++        setMenuState(false);
+       }
+     });
+   });
+@@ -162,6 +167,14 @@
+ (function advancedSnowEffect() {
+   const canvas = document.getElementById('snow');
+   if (!canvas) return;
++
++  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
++  if (prefersReducedMotion) {
++    // Respeita a preferência do sistema: sem animação contínua de neve.
++    canvas.style.display = 'none';
++    return;
++  }
++
+   const ctx = canvas.getContext('2d');
+   
+   let width, height;
