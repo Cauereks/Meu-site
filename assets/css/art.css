@@ -1,0 +1,183 @@
+/* ===============================================
+   ART.CSS — Ice Cracks · Freeze Transition · Mascot
+   =============================================== */
+
+/* ===== Ice Overlay on Cards ===== */
+.ice-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  border-radius: inherit;
+  overflow: hidden;
+  transition: opacity 0.4s ease;
+  z-index: 4;
+  mix-blend-mode: screen;
+}
+
+.ice-crack-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cs2wb-card:hover .ice-overlay,
+.sc-card:hover .ice-overlay {
+  opacity: 0.22;
+}
+
+.social-card:hover .ice-overlay {
+  opacity: 0.14;
+}
+
+[data-theme="dark"] .ice-overlay {
+  opacity: 0.08;
+}
+
+[data-theme="dark"] .cs2wb-card:hover .ice-overlay,
+[data-theme="dark"] .sc-card:hover .ice-overlay {
+  opacity: 0.28;
+}
+
+[data-theme="dark"] .social-card:hover .ice-overlay {
+  opacity: 0.18;
+}
+
+/* ===== Freeze Transition Canvas ===== */
+.freeze-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ===== Snow Mascot ===== */
+#snow-mascot {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 90;
+  width: 70px;
+  cursor: pointer;
+  user-select: none;
+  filter: drop-shadow(0 4px 14px rgba(24, 123, 255, 0.22));
+  transition: filter 0.25s ease;
+}
+
+#snow-mascot:hover {
+  filter: drop-shadow(0 6px 20px rgba(24, 123, 255, 0.4));
+}
+
+/* --- State animations --- */
+.snow-mascot--idle #mascot-svg {
+  animation: mascot-bob 3.2s ease-in-out infinite;
+}
+
+.snow-mascot--sleeping #mascot-svg {
+  animation: mascot-sleep 4s ease-in-out infinite;
+}
+
+.snow-mascot--dancing #mascot-svg {
+  animation: mascot-dance 0.48s ease-in-out infinite alternate;
+}
+
+.snow-mascot--waving #mascot-svg {
+  animation: mascot-wave 0.42s ease-in-out 3;
+}
+
+.snow-mascot--jumping #mascot-svg {
+  animation: mascot-jump 0.52s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+}
+
+@keyframes mascot-bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  40%       { transform: translateY(-5px) rotate(-2deg); }
+  60%       { transform: translateY(-5px) rotate(2deg); }
+}
+
+@keyframes mascot-sleep {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50%       { transform: translateY(4px) rotate(4deg); }
+}
+
+@keyframes mascot-dance {
+  from { transform: translateY(0) rotate(-10deg) scale(1); }
+  to   { transform: translateY(-10px) rotate(10deg) scale(1.06); }
+}
+
+@keyframes mascot-wave {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  25%       { transform: rotate(-14deg) translateY(-2px); }
+  75%       { transform: rotate(12deg) translateY(-2px); }
+}
+
+@keyframes mascot-jump {
+  0%   { transform: translateY(0) scaleY(1) scaleX(1); }
+  25%  { transform: translateY(-22px) scaleY(1.06) scaleX(0.94); }
+  55%  { transform: translateY(-4px) scaleY(1) scaleX(1); }
+  75%  { transform: translateY(0) scaleY(0.92) scaleX(1.06); }
+  100% { transform: translateY(0) scaleY(1) scaleX(1); }
+}
+
+/* ZZZ float */
+#mascot-zzz {
+  animation: zzz-float 2.2s ease-in-out infinite;
+}
+
+@keyframes zzz-float {
+  0%, 100% { transform: translateY(0); opacity: 0.65; }
+  50%       { transform: translateY(-5px); opacity: 1; }
+}
+
+/* Music note */
+#mascot-note {
+  animation: note-pop 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes note-pop {
+  from { transform: translateY(0) rotate(-12deg) scale(1); }
+  to   { transform: translateY(-6px) rotate(12deg) scale(1.1); }
+}
+
+/* --- Tooltip --- */
+.mascot-tooltip {
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  background: var(--surface, #fff);
+  border: 1px solid var(--border, #d9e6ff);
+  border-radius: 12px 12px 2px 12px;
+  padding: 7px 13px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text, #0b1b2b);
+  white-space: nowrap;
+  box-shadow: 0 4px 18px rgba(12, 42, 85, 0.14);
+  font-family: Inter, sans-serif;
+  opacity: 0;
+  transform: translateY(8px) scale(0.93);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+
+.mascot-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* --- Mobile --- */
+@media (max-width: 600px) {
+  #snow-mascot {
+    bottom: 14px;
+    right: 14px;
+    width: 54px;
+  }
+
+  .mascot-tooltip {
+    bottom: 66px;
+    font-size: 12px;
+    padding: 6px 11px;
+  }
+}

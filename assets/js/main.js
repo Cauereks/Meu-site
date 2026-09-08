@@ -12,15 +12,17 @@ if (menuToggle && nav) {
   nav.style.display = '';
 
   menuToggle.addEventListener('click', () => {
-    nav.classList.toggle('nav--open');
-    menuToggle.innerHTML = nav.classList.contains('nav--open') ? '✕' : '☰';
+    const isOpen = nav.classList.toggle('nav--open');
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
   });
 
   nav.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       if (window.innerWidth <= 900) {
         nav.classList.remove('nav--open');
-        menuToggle.innerHTML = '☰';
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Abrir menu');
       }
     });
   });
@@ -53,7 +55,7 @@ function setupCopyButton(btnId, codeId, feedbackId) {
         feedback.textContent = "✓ Código da mira copiado!";
         feedback.style.color = "#10b981"; // Verde
         feedback.classList.add('show');
-        
+
         setTimeout(() => feedback.classList.remove('show'), 2500);
       } catch (err) {
         feedback.textContent = "Erro ao copiar.";
@@ -67,93 +69,94 @@ function setupCopyButton(btnId, codeId, feedbackId) {
 setupCopyButton('btn-copy-crosshair', 'cs2wb-crosshair', 'cs2wb-feedback');
 setupCopyButton('btn-copy-val', 'val-crosshair', 'val-feedback');
 
-/* ===== Integração com Lanyard (Discord Status) ===== */
+/* ===== Integração com Lanyard (Discord Status via WebSocket) ===== */
 const DISCORD_ID = '310952599757127681';
 
-async function fetchDiscordStatus() {
-  try {
-    const response = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
-    const { data } = await response.json();
-    
-    if (!data) return;
+const iconDesktop = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>`;
+const iconMobile  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>`;
+const iconWeb     = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`;
 
-    const pfp = document.getElementById('ds-pfp');
-    const decorationEl = document.getElementById('ds-decoration'); // Pega o novo elemento
-    const indicator = document.getElementById('ds-indicator');
-    const nameEl = document.getElementById('ds-name');
-    const activityEl = document.getElementById('ds-activity');
+function applyDiscordData(data) {
+  if (!data) return;
 
-    // (Outros elementos que você já pegou)
-    const devicesEl = document.getElementById('ds-devices');
-    
-    // Define os ícones em formato SVG (PC, Mobile, Web)
-    const iconDesktop = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>`;
-    const iconMobile = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>`;
-    const iconWeb = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`;
+  const pfp          = document.getElementById('ds-pfp');
+  const decorationEl = document.getElementById('ds-decoration');
+  const indicator    = document.getElementById('ds-indicator');
+  const nameEl       = document.getElementById('ds-name');
+  const activityEl   = document.getElementById('ds-activity');
+  const devicesEl    = document.getElementById('ds-devices');
 
-    // Limpa os ícones antigos antes de atualizar
-    devicesEl.innerHTML = '';
+  devicesEl.innerHTML = '';
+  if (data.active_on_discord_desktop) devicesEl.innerHTML += iconDesktop;
+  if (data.active_on_discord_mobile)  devicesEl.innerHTML += iconMobile;
+  if (data.active_on_discord_web)     devicesEl.innerHTML += iconWeb;
 
-    // Verifica onde o usuário está ativo e adiciona o ícone
-    if (data.active_on_discord_desktop) devicesEl.innerHTML += iconDesktop;
-    if (data.active_on_discord_mobile) devicesEl.innerHTML += iconMobile;
-    if (data.active_on_discord_web) devicesEl.innerHTML += iconWeb;
-
-    // 1. Atualiza o Avatar
-    if (data.discord_user.avatar) {
-      const isAnimated = data.discord_user.avatar.startsWith('a_');
-      const extension = isAnimated ? 'gif' : 'png';
-      
-      pfp.src = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${data.discord_user.avatar}.${extension}?size=128`;
-      pfp.style.display = 'block';
-    }
-
-    // 2. Atualiza a Decoração (Moldura)
-    if (data.discord_user.avatar_decoration_data) {
-      const asset = data.discord_user.avatar_decoration_data.asset;
-      // O Discord usa um endpoint específico para decorações
-      decorationEl.src = `https://cdn.discordapp.com/avatar-decoration-presets/${asset}.png?size=128`;
-      decorationEl.style.display = 'block';
-    } else {
-      // Esconde a moldura caso você tire no Discord
-      decorationEl.style.display = 'none';
-    }
-
-    nameEl.textContent = data.discord_user.display_name || data.discord_user.username;
-    indicator.className = `ds-indicator ${data.discord_status}`;
-
-    let activityText = 'Apenas cochilando'; 
-    
-    if (data.listening_to_spotify && data.spotify) {
-      activityText = `Ouvindo: ${data.spotify.artist} - ${data.spotify.song}`;
-    } else if (data.activities && data.activities.length > 0) {
-      const mainActivity = data.activities.find(a => a.type !== 4);
-      
-      if (mainActivity) {
-        if (mainActivity.name.toLowerCase().includes("code") || mainActivity.name.toLowerCase().includes("visual studio")) {
-          activityText = `Codando em: ${mainActivity.name}`;
-        } else {
-          activityText = `Jogando: ${mainActivity.name}`;
-        }
-      } else {
-        const customStatus = data.activities.find(a => a.type === 4);
-        if (customStatus && customStatus.state) {
-          activityText = customStatus.state;
-        }
-      }
-    } else if (data.discord_status === 'offline') {
-      activityText = 'Offline no momento';
-    }
-
-    activityEl.textContent = activityText;
-
-  } catch (error) {
-    console.error('Erro ao buscar o status do Discord:', error);
+  if (data.discord_user.avatar) {
+    const isAnimated = data.discord_user.avatar.startsWith('a_');
+    pfp.src = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${data.discord_user.avatar}.${isAnimated ? 'gif' : 'png'}?size=128`;
+    pfp.style.display = 'block';
   }
+
+  if (data.discord_user.avatar_decoration_data) {
+    decorationEl.src = `https://cdn.discordapp.com/avatar-decoration-presets/${data.discord_user.avatar_decoration_data.asset}.png?size=128`;
+    decorationEl.style.display = 'block';
+  } else {
+    decorationEl.style.display = 'none';
+  }
+
+  nameEl.textContent = data.discord_user.display_name || data.discord_user.username;
+  indicator.className = `ds-indicator ${data.discord_status}`;
+
+  let activityText = 'Apenas cochilando';
+  if (data.listening_to_spotify && data.spotify) {
+    activityText = `Ouvindo: ${data.spotify.artist} - ${data.spotify.song}`;
+  } else if (data.activities && data.activities.length > 0) {
+    const main = data.activities.find(a => a.type !== 4);
+    if (main) {
+      const n = main.name.toLowerCase();
+      activityText = (n.includes('code') || n.includes('visual studio'))
+        ? `Codando em: ${main.name}`
+        : `Jogando: ${main.name}`;
+    } else {
+      const custom = data.activities.find(a => a.type === 4);
+      if (custom && custom.state) activityText = custom.state;
+    }
+  } else if (data.discord_status === 'offline') {
+    activityText = 'Offline no momento';
+  }
+
+  activityEl.textContent = activityText;
 }
 
-fetchDiscordStatus();
-setInterval(fetchDiscordStatus, 10000);
+(function connectLanyard() {
+  let heartbeatInterval;
+
+  function connect() {
+    const ws = new WebSocket('wss://api.lanyard.rest/socket');
+
+    ws.addEventListener('message', (event) => {
+      const msg = JSON.parse(event.data);
+      if (msg.op === 1) {
+        heartbeatInterval = setInterval(() => {
+          if (ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify({ op: 3 }));
+        }, msg.d.heartbeat_interval);
+        ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: DISCORD_ID } }));
+      }
+      if (msg.op === 0 && (msg.t === 'INIT_STATE' || msg.t === 'PRESENCE_UPDATE')) {
+        applyDiscordData(msg.d);
+      }
+    });
+
+    ws.addEventListener('close', () => {
+      clearInterval(heartbeatInterval);
+      setTimeout(connect, 5000);
+    });
+
+    ws.addEventListener('error', () => ws.close());
+  }
+
+  connect();
+})();
 
 
 /* ====================================================================== */
@@ -163,12 +166,12 @@ setInterval(fetchDiscordStatus, 10000);
   const canvas = document.getElementById('snow');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  
+
   let width, height;
   let flakes = [];
   let isPlaying = true;
   let animationId;
-  
+
   // Variáveis para interação do mouse
   let mouse = { x: -1000, y: -1000, radius: 150 };
 
@@ -188,23 +191,23 @@ setInterval(fetchDiscordStatus, 10000);
     constructor() {
       this.init();
       // Espalha a neve por toda a tela no carregamento inicial
-      this.y = Math.random() * height; 
+      this.y = Math.random() * height;
     }
 
     init() {
       // Eixo Z determina a profundidade (Parallax). 1 é perto, 3 é fundo.
-      this.z = Math.random() * 2 + 0.5; 
-      
+      this.z = Math.random() * 2 + 0.5;
+
       this.x = Math.random() * width;
       this.y = -(Math.random() * 50) - 10; // Começa um pouco acima do canvas
-      
+
       // Velocidade base (vetores)
       this.vx = (Math.random() - 0.5) * 0.5; // Vento lateral natural
       this.vy = (Math.random() * 1.5 + 0.5) / this.z; // Velocidade de queda baseada no Z
-      
+
       // Tamanho baseado na profundidade (flocos mais próximos são maiores)
       this.radius = (Math.random() * 2.5 + 1.5) / this.z;
-      
+
       // Oscilação orgânica (como uma folha caindo)
       this.wobble = Math.random() * Math.PI * 2;
       this.wobbleSpeed = Math.random() * 0.05 + 0.01;
@@ -226,15 +229,15 @@ setInterval(fetchDiscordStatus, 10000);
         let forceDirectionX = dx / distance;
         let forceDirectionY = dy / distance;
         let force = (mouse.radius - distance) / mouse.radius;
-        
+
         // Aplica a força na velocidade (vetores)
         this.vx += forceDirectionX * force * 0.8;
         this.vy += forceDirectionY * force * 0.8;
       }
 
       // Atrito do ar (Friction) para fazer a neve suavizar após ser empurrada
-      this.vx *= 0.95; 
-      
+      this.vx *= 0.95;
+
       // Limite de velocidade de queda para voltar ao normal depois da repulsão
       const maxVy = (3 / this.z);
       if (this.vy < maxVy) {
@@ -256,10 +259,10 @@ setInterval(fetchDiscordStatus, 10000);
     draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      
+
       // Opacidade dinâmica: flocos ao fundo são mais transparentes
       const opacity = Math.max(0.2, 1 - (this.z / 3.5));
-      
+
       // Cor com base no tema (pode ajustar para ficar mais azulado se quiser)
       ctx.fillStyle = `rgba(200, 220, 255, ${opacity})`;
       ctx.fill();
@@ -269,11 +272,11 @@ setInterval(fetchDiscordStatus, 10000);
   function resize() {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
-    
+
     // Otimização Mobile vs Desktop
     const isMobile = window.innerWidth < 768;
     const flakeCount = isMobile ? 60 : 250; // Quantidade de flocos
-    
+
     // Ajusta o array sem ter que recriar tudo se a tela for apenas redimensionada
     if (flakes.length !== flakeCount) {
       flakes = Array.from({ length: flakeCount }, () => new Snowflake());
@@ -281,16 +284,16 @@ setInterval(fetchDiscordStatus, 10000);
   }
 
   function update() {
-    if (!isPlaying) return; 
+    if (!isPlaying) return;
 
     // Efeito de rastro leve em vez de limpar tudo instantaneamente (traz sensação de fluidez)
     ctx.clearRect(0, 0, width, height);
-    
+
     for (const flake of flakes) {
       flake.update();
       flake.draw();
     }
-    
+
     animationId = requestAnimationFrame(update);
   }
 
@@ -307,14 +310,14 @@ setInterval(fetchDiscordStatus, 10000);
         if (entry.isIntersecting) {
           if (!isPlaying) {
             isPlaying = true;
-            update(); 
+            update();
           }
         } else {
           isPlaying = false;
           cancelAnimationFrame(animationId);
         }
       });
-    }, { threshold: 0 }); 
+    }, { threshold: 0 });
     observer.observe(heroSection);
   }
 
@@ -323,15 +326,15 @@ setInterval(fetchDiscordStatus, 10000);
       isPlaying = false;
       cancelAnimationFrame(animationId);
     } else {
-      if(heroSection) {
+      if (heroSection) {
         const rect = heroSection.getBoundingClientRect();
         if (rect.top < window.innerHeight && rect.bottom >= 0) {
           isPlaying = true;
           update();
         }
       } else {
-          isPlaying = true;
-          update();
+        isPlaying = true;
+        update();
       }
     }
   });
@@ -363,7 +366,7 @@ if (themeToggleBtn) {
   themeToggleBtn.addEventListener('click', () => {
     let theme = document.documentElement.getAttribute('data-theme');
     let targetTheme = theme === 'dark' ? 'light' : 'dark';
-    
+
     document.documentElement.setAttribute('data-theme', targetTheme);
     localStorage.setItem('theme', targetTheme);
   });

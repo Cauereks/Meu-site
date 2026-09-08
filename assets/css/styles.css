@@ -117,6 +117,23 @@ body {
   font-size: 22px;
 }
 
+.icon-close { display: none; }
+.icon-hamburger { display: block; }
+.menu-toggle[aria-expanded="true"] .icon-close { display: block; }
+.menu-toggle[aria-expanded="true"] .icon-hamburger { display: none; }
+
+.nav a:focus-visible,
+.backtotop:focus-visible,
+.btn-copy:focus-visible,
+.social-card:focus-visible,
+.theme-toggle-btn:focus-visible,
+.menu-toggle:focus-visible,
+.logo:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 /* ===== HERO ===== */
 .hero {
   position: relative;
