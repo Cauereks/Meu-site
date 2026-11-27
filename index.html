@@ -4,31 +4,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zuboozin | Setup competitivo de CS2 e Valorant</title>
+  <title>ズブージン | 雪</title>
   <meta name="description"
-    content="Conheça o setup gamer, as configurações de CS2 e Valorant e os canais oficiais de Zuboozin." />
-  <meta name="author" content="Zuboozin" />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
-  <meta name="color-scheme" content="light dark" />
+    content="Site oficial de Cauê com tema neve: fundo branco e acentos azuis. Setup, downloads e redes sociais." />
+  <meta name="color-scheme" content="light" />
   <meta name="theme-color" content="#187bff" />
 
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="pt_BR" />
-  <meta property="og:site_name" content="Zuboozin" />
-  <meta property="og:title" content="Zuboozin | Setup competitivo de CS2 e Valorant" />
-  <meta property="og:description"
-    content="Setup gamer, configurações competitivas e canais oficiais de Zuboozin." />
-  <meta property="og:url" content="https://cauereks.github.io/Meu-site/" />
-  <meta property="og:image" content="https://cauereks.github.io/Meu-site/images/og-zuboozin.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Zuboozin com referências a setup, CS2 e Valorant" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Zuboozin | Setup competitivo" />
-  <meta name="twitter:description" content="Setup gamer e configurações de CS2 e Valorant." />
-  <meta name="twitter:image" content="https://cauereks.github.io/Meu-site/images/og-zuboozin.jpg" />
-  <meta name="twitter:image:alt" content="Zuboozin com referências a setup, CS2 e Valorant" />
+  <meta property="og:title" content="Zuboozin | Hub">
+  <meta property="og:description" content="Site oficial de Cauê. Setup, downloads e redes sociais.">
+  <meta property="og:image" content="images/rion-snow.png">
+  <meta property="og:url" content="https://cauereks.github.io/Meu-site/">
 
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,31 +21,8 @@
     rel="stylesheet" />
 
   <link rel="icon" type="image/svg+xml" href="images/snowflake.svg" />
-  <link rel="canonical" href="https://cauereks.github.io/Meu-site/" />
-  <link rel="manifest" href="site.webmanifest" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="stylesheet" href="assets/css/art.css" />
-
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfilePage",
-      "name": "Zuboozin | Setup competitivo",
-      "url": "https://cauereks.github.io/Meu-site/",
-      "inLanguage": "pt-BR",
-      "mainEntity": {
-        "@type": "Person",
-        "name": "Zuboozin",
-        "image": "https://cauereks.github.io/Meu-site/images/rion-snow.png",
-        "knowsAbout": ["CS2", "Valorant", "Gaming hardware", "Streaming"],
-        "sameAs": [
-          "https://www.youtube.com/@zuboozin",
-          "https://www.twitch.tv/zuboozin",
-          "https://steamcommunity.com/id/zuboozin"
-        ]
-      }
-    }
-  </script>
 
   <script>
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -69,28 +31,24 @@
 </head>
 
 <body>
-  <a class="skip-link" href="#conteudo-principal">Pular para o conteúdo principal</a>
   <canvas id="snow" aria-hidden="true"></canvas>
 
   <header class="header">
     <div class="container header__inner">
       <a class="logo" href="#inicio" aria-label="Voltar ao início">Zuboozin</a>
       <nav class="nav" id="nav-principal" aria-label="Principal">
-        <a href="#cs2">CS2</a>
-        <a href="#valorant">Valorant</a>
         <a href="#setup">Setup</a>
         <a href="#sociais">Sociais</a>
+        <a href="#cs2">CS2</a>
+        <a href="#valorant">Valorant</a>
 
-        <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="Ativar tema escuro"
-          aria-pressed="false">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Alternar Tema">
           <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            aria-hidden="true">
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
           </svg>
           <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            aria-hidden="true">
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
             <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -103,8 +61,7 @@
           </svg>
         </button>
       </nav>
-      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false"
-        aria-controls="nav-principal">
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-principal">
         <svg class="icon-hamburger" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="22" height="22"
           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
           stroke-linejoin="round">
@@ -122,81 +79,44 @@
     </div>
   </header>
 
-  <main id="conteudo-principal" tabindex="-1">
+  <main>
     <section id="inicio" class="hero">
-      <video class="hero__video" muted loop playsinline preload="none" poster="images/hero-poster.jpg" data-video
-        aria-hidden="true" tabindex="-1">
-        <source data-src="assets/video/Background_1.mp4" type="video/mp4" />
+      <video class="hero__video" autoplay muted loop playsinline poster="images/hero-poster.jpg">
+        <source src="assets/video/Background_1.mp4" type="video/mp4" />
       </video>
       <div class="hero__frost" aria-hidden="true"></div>
 
       <div class="container hero__content">
-        <div class="hero__copy">
-          <p class="hero__eyebrow">Perfil gamer · Setup · Competitivo</p>
-          <h1 class="title-snow" lang="ja">ズブージン</h1>
-          <p class="subtitle-pt">ZUBOOZIN</p>
-          <p class="hero__description">
-            Configurações, setup e rotina competitiva entre CS2 e Valorant.
-          </p>
+        <h1 class="title-snow" lang="ja">ズブージン</h1>
+        <p class="subtitle-pt">ZUBOOZIN</p>
 
-          <div class="hero__actions">
-            <a class="hero__cta hero__cta--primary" href="#setup">
-              Explorar setup
-              <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5v14"></path>
-                <path d="m19 12-7 7-7-7"></path>
-              </svg>
-            </a>
-            <a class="hero__cta hero__cta--secondary" href="https://www.twitch.tv/zuboozin" target="_blank"
-              rel="noopener noreferrer">
-              Assistir na Twitch
-              <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M15 3h6v6"></path>
-                <path d="M10 14 21 3"></path>
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-              </svg>
-            </a>
+        <div id="discord-status" class="discord-status">
+          <div class="ds-avatar">
+            <img id="ds-pfp" src="" alt="Discord Avatar" style="display: none;">
+            <img id="ds-decoration" class="ds-decoration" src="" alt="Avatar Decoration" style="display: none;">
+            <div id="ds-indicator" class="ds-indicator offline"></div>
           </div>
-
-          <div id="discord-status" class="discord-status" role="status" aria-live="polite" aria-atomic="true">
-            <div class="ds-avatar">
-              <img id="ds-pfp" src="" alt="Avatar do Discord de Zuboozin" style="display: none;">
-              <img id="ds-decoration" class="ds-decoration" src="" alt="" aria-hidden="true" style="display: none;">
-              <div id="ds-indicator" class="ds-indicator offline" aria-hidden="true"></div>
+          <div class="ds-info">
+            <div class="ds-name-row">
+              <span id="ds-name" class="ds-name">Carregando status...</span>
+              <div id="ds-devices" class="ds-devices"></div>
             </div>
-            <div class="ds-info">
-              <div class="ds-name-row">
-                <span id="ds-name" class="ds-name">Carregando status...</span>
-                <div id="ds-devices" class="ds-devices" aria-hidden="true"></div>
-              </div>
-              <span id="ds-activity" class="ds-activity">Conectando ao Discord</span>
-            </div>
+            <span id="ds-activity" class="ds-activity">Conectando ao Discord</span>
           </div>
         </div>
       </div>
 
       <div class="hero__avatar-container--boundary">
-        <picture>
-          <source srcset="images/rion-snow.webp" type="image/webp">
-          <img src="images/rion-snow.png" width="1100" height="1100" alt="Avatar Rion Snow Zuboozin"
-            class="hero__avatar--boundary" decoding="async" fetchpriority="high">
-        </picture>
+        <img src="images/rion-snow.png" alt="Avatar Rion Snow Zuboozin" class="hero__avatar--boundary">
       </div>
     </section>
 
-    <section class="section games-section" aria-labelledby="configuracoes-title">
+    <section class="section">
       <div class="container">
-        <div class="section__head games-section__head">
-          <p class="section__eyebrow">Configurações competitivas</p>
-          <h2 id="configuracoes-title">Pronto para entrar no servidor</h2>
-          <p class="section__intro">Valores usados no CS2 e no Valorant, com cópia rápida para facilitar o ajuste.</p>
-        </div>
         <div class="games-grid">
           <div id="cs2" class="cs2wb-card" data-tilt data-reveal>
             <header class="cs2wb-head">
-              <h3>CS2</h3>
+              <h2>CS2</h2>
               <div class="cs2wb-ranks">
                 <span class="cs2wb-rank-badge" title="Premier / MM">Global Elite</span>
                 <span class="cs2wb-sep">/</span>
@@ -205,68 +125,27 @@
             </header>
             <hr class="cs2wb-sep-line" />
             <p class="cs2wb-settings-title" aria-hidden="true">SETTINGS</p>
-            <dl class="cs2wb-grid">
+            <dl class="cs2wb-grid" role="list">
               <div class="cs2wb-row">
                 <dt>SENSITIVITY</dt>
-                <dd>
-                  <div class="cs2wb-value">
-                    <span id="cs2-sensitivity">2.5</span>
-                    <button class="btn-copy" type="button" data-copy-target="cs2-sensitivity"
-                      data-feedback="cs2wb-feedback" data-copy-label="Sensibilidade do CS2"
-                      aria-label="Copiar sensibilidade do CS2" title="Copiar">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                      </svg>
-                    </button>
-                  </div>
-                </dd>
+                <dd>2.5</dd>
               </div>
               <div class="cs2wb-row">
                 <dt>DPI</dt>
-                <dd>
-                  <div class="cs2wb-value">
-                    <span id="cs2-dpi">1200</span>
-                    <button class="btn-copy" type="button" data-copy-target="cs2-dpi"
-                      data-feedback="cs2wb-feedback" data-copy-label="DPI do CS2" aria-label="Copiar DPI do CS2"
-                      title="Copiar">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                      </svg>
-                    </button>
-                  </div>
-                </dd>
+                <dd>1200</dd>
               </div>
               <div class="cs2wb-row">
                 <dt>RESOLUTION</dt>
-                <dd>
-                  <div class="cs2wb-value">
-                    <span id="cs2-resolution">1280×960 (Stretched)</span>
-                    <button class="btn-copy" type="button" data-copy-target="cs2-resolution"
-                      data-feedback="cs2wb-feedback" data-copy-label="Resolução do CS2"
-                      aria-label="Copiar resolução do CS2" title="Copiar">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                      </svg>
-                    </button>
-                  </div>
-                </dd>
+                <dd>1280×960 (Stretched)</dd>
               </div>
               <div class="cs2wb-row cs2wb-row--crosshair">
                 <dt>CROSSHAIR</dt>
                 <dd>
-                  <div class="cs2wb-value">
+                  <div class="cs2wb-cross">
                     <code id="cs2wb-crosshair">CSGO-BQYmk-u2stB-CkDOk-AKOY9-WsdqA</code>
-                    <button class="btn-copy" type="button" data-copy-target="cs2wb-crosshair"
-                      data-feedback="cs2wb-feedback" data-copy-label="Código da mira do CS2"
-                      aria-label="Copiar código da mira do CS2" title="Copiar">
+                    <button id="btn-copy-crosshair" class="btn-copy" aria-label="Copiar código da mira" title="Copiar">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        stroke-linecap="round" stroke-linejoin="round">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                       </svg>
@@ -280,74 +159,34 @@
 
           <div id="valorant" class="cs2wb-card" data-tilt data-reveal>
             <header class="cs2wb-head">
-              <h3>Valorant</h3>
+              <h2>Valorant</h2>
               <div class="cs2wb-ranks">
                 <span class="cs2wb-rank-badge val-badge" title="Rank Competitivo">Diamante 2</span>
               </div>
             </header>
             <hr class="cs2wb-sep-line" />
             <p class="cs2wb-settings-title" aria-hidden="true">SETTINGS</p>
-            <dl class="cs2wb-grid">
+            <dl class="cs2wb-grid" role="list">
               <div class="cs2wb-row">
                 <dt>SENSITIVITY</dt>
-                <dd>
-                  <div class="cs2wb-value">
-                    <span id="val-sensitivity">1</span>
-                    <button class="btn-copy" type="button" data-copy-target="val-sensitivity"
-                      data-feedback="val-feedback" data-copy-label="Sensibilidade do Valorant"
-                      aria-label="Copiar sensibilidade do Valorant" title="Copiar">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                      </svg>
-                    </button>
-                  </div>
-                </dd>
+                <dd>1</dd>
               </div>
               <div class="cs2wb-row">
                 <dt>DPI</dt>
-                <dd>
-                  <div class="cs2wb-value">
-                    <span id="val-dpi">1200</span>
-                    <button class="btn-copy" type="button" data-copy-target="val-dpi" data-feedback="val-feedback"
-                      data-copy-label="DPI do Valorant" aria-label="Copiar DPI do Valorant" title="Copiar">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                      </svg>
-                    </button>
-                  </div>
-                </dd>
+                <dd>1200</dd>
               </div>
               <div class="cs2wb-row">
                 <dt>RESOLUTION</dt>
-                <dd>
-                  <div class="cs2wb-value">
-                    <span id="val-resolution">1280×960 (Stretched)</span>
-                    <button class="btn-copy" type="button" data-copy-target="val-resolution"
-                      data-feedback="val-feedback" data-copy-label="Resolução do Valorant"
-                      aria-label="Copiar resolução do Valorant" title="Copiar">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2 2v1"></path>
-                      </svg>
-                    </button>
-                  </div>
-                </dd>
+                <dd>1280×960 (Stretched)</dd>
               </div>
               <div class="cs2wb-row cs2wb-row--crosshair">
                 <dt>CROSSHAIR</dt>
                 <dd>
-                  <div class="cs2wb-value">
+                  <div class="cs2wb-cross">
                     <code id="val-crosshair">0;P;c;4;o;1;f;0;0l;5;0v;5;0a;1;0f;0;1l;0;1v;0;1o;13;1a;0;1m;0;1f;0</code>
-                    <button class="btn-copy" type="button" data-copy-target="val-crosshair"
-                      data-feedback="val-feedback" data-copy-label="Código da mira do Valorant"
-                      aria-label="Copiar código da mira do Valorant" title="Copiar">
+                    <button id="btn-copy-val" class="btn-copy" aria-label="Copiar código da mira" title="Copiar">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        stroke-linecap="round" stroke-linejoin="round">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                       </svg>
@@ -363,35 +202,24 @@
     </section>
 
     <section id="setup" class="section setup-video-section">
-      <video class="setup__video" muted loop playsinline preload="none" poster="images/setup-poster.jpg" data-video
-        aria-hidden="true" tabindex="-1">
-        <source data-src="assets/video/0319.mp4" type="video/mp4" />
+      <video class="setup__video" autoplay muted loop playsinline poster="images/setup-poster.jpg">
+        <source src="assets/video/0319.mp4" type="video/mp4" />
       </video>
       <div class="setup__overlay" aria-hidden="true"></div>
 
       <div class="container setup__container">
         <div class="section__head">
           <h2>Setup (Compacto)</h2>
-          <p class="section__intro">Componentes organizados por função para facilitar a consulta.</p>
         </div>
-        <div class="setup-groups">
-          <section class="setup-group" aria-labelledby="setup-hardware">
-            <header class="setup-group__head">
-              <span class="setup-group__index" aria-hidden="true">01</span>
-              <div>
-                <h3 id="setup-hardware">Hardware principal</h3>
-                <p>Desempenho, imagem e armazenamento.</p>
-              </div>
-            </header>
-            <div class="setup-compact">
-              <article class="sc-card">
+        <div class="setup-compact">
+          <article class="sc-card">
             <header class="sc-head">
               <span class="sc-ic">
                 <div class="svg-icon"
                   style="-webkit-mask-image: url('images/icons/cpu.svg'); mask-image: url('images/icons/cpu.svg');">
                 </div>
               </span>
-              <h4 class="sc-title">CPU</h4>
+              <h3 class="sc-title">CPU</h3>
             </header>
             <p class="sc-main">AMD Ryzen 7 7800X3D</p>
           </article>
@@ -402,7 +230,7 @@
                   style="-webkit-mask-image: url('images/icons/gpu.svg'); mask-image: url('images/icons/gpu.svg');">
                 </div>
               </span>
-              <h4 class="sc-title">GPU</h4>
+              <h3 class="sc-title">GPU</h3>
             </header>
             <p class="sc-main">GIGABYTE GeForce RTX 4070 Ti SUPER AERO OC</p>
           </article>
@@ -413,7 +241,7 @@
                   style="-webkit-mask-image: url('images/icons/memory.svg'); mask-image: url('images/icons/memory.svg');">
                 </div>
               </span>
-              <h4 class="sc-title">Memória</h4>
+              <h3 class="sc-title">Memória</h3>
             </header>
             <p class="sc-main">32GB (2x16GB) Kingston DDR5</p>
           </article>
@@ -424,7 +252,7 @@
                   style="-webkit-mask-image: url('images/icons/monitor.svg'); mask-image: url('images/icons/monitor.svg');">
                 </div>
               </span>
-              <h4 class="sc-title">Monitores</h4>
+              <h3 class="sc-title">Monitores</h3>
             </header>
             <ul class="sc-list">
               <li>ZOWIE XL2546X+ 280Hz <em>(Principal)</em></li>
@@ -438,7 +266,7 @@
                   style="-webkit-mask-image: url('images/icons/motherboard.svg'); mask-image: url('images/icons/motherboard.svg');">
                 </div>
               </span>
-              <h4 class="sc-title">Placa‑mãe</h4>
+              <h3 class="sc-title">Placa‑mãe</h3>
             </header>
             <p class="sc-main">ASRock X870 Steel Legend WiFi</p>
           </article>
@@ -449,7 +277,7 @@
                   style="-webkit-mask-image: url('images/icons/storage.svg'); mask-image: url('images/icons/storage.svg');">
                 </div>
               </span>
-              <h4 class="sc-title">Armazenamento</h4>
+              <h3 class="sc-title">Armazenamento</h3>
             </header>
             <ul class="sc-list">
               <li>Kingston NV3 1TB M.2 NVMe</li>
@@ -457,26 +285,14 @@
               <li>SanDisk SSD Plus 250GB (SATA)</li>
             </ul>
           </article>
-            </div>
-          </section>
-
-          <section class="setup-group" aria-labelledby="setup-perifericos">
-            <header class="setup-group__head">
-              <span class="setup-group__index" aria-hidden="true">02</span>
-              <div>
-                <h3 id="setup-perifericos">Periféricos e áudio</h3>
-                <p>Controle, precisão e comunicação.</p>
-              </div>
-            </header>
-            <div class="setup-compact">
-              <article class="sc-card">
+          <article class="sc-card">
             <header class="sc-head">
               <span class="sc-ic">
                 <div class="svg-icon"
                   style="-webkit-mask-image: url('images/icons/microphone.svg'); mask-image: url('images/icons/microphone.svg');">
                 </div>
               </span>
-              <h4 class="sc-title">Áudio</h4>
+              <h3 class="sc-title">Áudio</h3>
             </header>
             <ul class="sc-list">
               <li>Microfone Fifine AM8 White</li>
@@ -491,7 +307,7 @@
                   style="-webkit-mask-image: url('images/icons/keyboard.svg'); mask-image: url('images/icons/keyboard.svg');">
                 </div>
               </span>
-              <h4 class="sc-title">Teclado</h4>
+              <h3 class="sc-title">Teclado</h3>
             </header>
             <p class="sc-main">Wooting 80HE</p>
           </article>
@@ -502,33 +318,21 @@
                   style="-webkit-mask-image: url('images/icons/mouse.svg'); mask-image: url('images/icons/mouse.svg');">
                 </div>
               </span>
-              <h4 class="sc-title">Mouse & Pad</h4>
+              <h3 class="sc-title">Mouse & Pad</h3>
             </header>
             <ul class="sc-list">
               <li>Arbiter Akitsu Medium White (Nº 1379)</li>
               <li>Kanami Minami Glasspad (Nº 0069)</li>
             </ul>
           </article>
-            </div>
-          </section>
-
-          <section class="setup-group" aria-labelledby="setup-streaming">
-            <header class="setup-group__head">
-              <span class="setup-group__index" aria-hidden="true">03</span>
-              <div>
-                <h3 id="setup-streaming">Streaming e acabamento</h3>
-                <p>Captura, gabinete, refrigeração e controle.</p>
-              </div>
-            </header>
-            <div class="setup-compact">
-              <article class="sc-card">
+          <article class="sc-card">
             <header class="sc-head">
               <span class="sc-ic">
                 <div class="svg-icon"
                   style="-webkit-mask-image: url('images/icons/streaming.svg'); mask-image: url('images/icons/streaming.svg');">
                 </div>
               </span>
-              <h4 class="sc-title">Streaming</h4>
+              <h3 class="sc-title">Streaming</h3>
             </header>
             <ul class="sc-list">
               <li>Elgato Stream Neo White</li>
@@ -542,7 +346,7 @@
                   style="-webkit-mask-image: url('images/icons/pc-case.svg'); mask-image: url('images/icons/pc-case.svg');">
                 </div>
               </span>
-              <h4 class="sc-title">Gabinete</h4>
+              <h3 class="sc-title">Gabinete</h3>
             </header>
             <p class="sc-main">Lian Li O11 Vision White</p>
           </article>
@@ -553,7 +357,7 @@
                   style="-webkit-mask-image: url('images/icons/cooling.svg'); mask-image: url('images/icons/cooling.svg');">
                 </div>
               </span>
-              <h4 class="sc-title">Cooling</h4>
+              <h3 class="sc-title">Cooling</h3>
             </header>
             <ul class="sc-list">
               <li>Water Cooler Lian Li Galahad II TRINITY</li>
@@ -568,12 +372,10 @@
                   style="-webkit-mask-image: url('images/icons/joystick.svg'); mask-image: url('images/icons/joystick.svg');">
                 </div>
               </span>
-              <h4 class="sc-title">Controle</h4>
+              <h3 class="sc-title">Controle</h3>
             </header>
             <p class="sc-main">8Bitdo Ultimate Wireless White</p>
           </article>
-            </div>
-          </section>
         </div>
       </div>
     </section>
@@ -582,12 +384,11 @@
       <div class="container">
         <div class="section__head">
           <h2>Sociais</h2>
-          <p class="section__intro">Acompanhe transmissões, vídeos e o perfil de jogos de Zuboozin.</p>
         </div>
         <div class="social-grid">
           <a href="https://www.youtube.com/@zuboozin" target="_blank" rel="noopener noreferrer" class="social-card">
             <span class="social-icon youtube">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor">
                 <path
                   d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
               </svg>
@@ -596,7 +397,7 @@
           </a>
           <a href="https://www.twitch.tv/zuboozin" target="_blank" rel="noopener noreferrer" class="social-card">
             <span class="social-icon twitch">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor">
                 <path
                   d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z" />
               </svg>
@@ -606,7 +407,7 @@
           <a href="https://steamcommunity.com/id/zuboozin" target="_blank" rel="noopener noreferrer"
             class="social-card">
             <span class="social-icon steam">
-              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="currentColor">
                 <path
                   d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.2 2.2 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.22 2.22 0 0 1-1.312-1.568L.33 10.333Z" />
                 <path
@@ -623,7 +424,7 @@
   <footer class="footer">
     <div class="container footer__inner">
       <p>© <span id="year"></span> Zuboozin</p>
-      <a class="backtotop" href="#inicio" aria-label="Voltar ao início">↑</a>
+      <a class="backtotop" href="#inicio">↑</a>
     </div>
   </footer>
 

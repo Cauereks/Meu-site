@@ -64,20 +64,10 @@
   user-select: none;
   filter: drop-shadow(0 4px 14px rgba(24, 123, 255, 0.22));
   transition: filter 0.25s ease;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  font: inherit;
 }
 
 #snow-mascot:hover {
   filter: drop-shadow(0 6px 20px rgba(24, 123, 255, 0.4));
-}
-
-#snow-mascot:focus-visible {
-  outline: 3px solid var(--primary, #187bff);
-  outline-offset: 5px;
-  border-radius: 18px;
 }
 
 /* --- State animations --- */

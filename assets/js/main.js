@@ -4,54 +4,28 @@ if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
 
-// Menu mobile
+// Menu mobile Animado
 const menuToggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.nav');
 
 if (menuToggle && nav) {
-  const mobileMenu = window.matchMedia('(max-width: 900px)');
-
-  const setMenuState = (isOpen, returnFocus = false) => {
-    const shouldOpen = mobileMenu.matches && isOpen;
-
-    nav.classList.toggle('nav--open', shouldOpen);
-    nav.inert = mobileMenu.matches && !shouldOpen;
-    menuToggle.setAttribute('aria-expanded', String(shouldOpen));
-    menuToggle.setAttribute('aria-label', shouldOpen ? 'Fechar menu' : 'Abrir menu');
-    document.body.classList.toggle('menu-open', shouldOpen);
-
-    if (!shouldOpen && returnFocus) menuToggle.focus();
-  };
-
-  setMenuState(false);
+  nav.style.display = '';
 
   menuToggle.addEventListener('click', () => {
-    setMenuState(!nav.classList.contains('nav--open'));
+    const isOpen = nav.classList.toggle('nav--open');
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
   });
 
   nav.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
-      if (mobileMenu.matches) setMenuState(false);
+      if (window.innerWidth <= 900) {
+        nav.classList.remove('nav--open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Abrir menu');
+      }
     });
   });
-
-  document.addEventListener('pointerdown', event => {
-    if (
-      nav.classList.contains('nav--open')
-      && !nav.contains(event.target)
-      && !menuToggle.contains(event.target)
-    ) {
-      setMenuState(false);
-    }
-  });
-
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && nav.classList.contains('nav--open')) {
-      setMenuState(false, true);
-    }
-  });
-
-  mobileMenu.addEventListener('change', () => setMenuState(false));
 }
 
 // Scroll suave
@@ -62,65 +36,38 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
       const target = document.querySelector(id);
       if (target) {
         e.preventDefault();
-        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
-        if (link.classList.contains('skip-link')) target.focus({ preventScroll: true });
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
   });
 });
 
-/* ===== Copiar configurações de CS2 e Valorant ===== */
-const feedbackTimers = new WeakMap();
+/* ===== Funcionalidade: Copiar Mira CS2 e Valorant ===== */
+function setupCopyButton(btnId, codeId, feedbackId) {
+  const btn = document.getElementById(btnId);
+  const code = document.getElementById(codeId);
+  const feedback = document.getElementById(feedbackId);
 
-async function copyText(text) {
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text);
-    return;
+  if (btn && code && feedback) {
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(code.textContent.trim());
+        feedback.textContent = "✓ Código da mira copiado!";
+        feedback.style.color = "#10b981"; // Verde
+        feedback.classList.add('show');
+
+        setTimeout(() => feedback.classList.remove('show'), 2500);
+      } catch (err) {
+        feedback.textContent = "Erro ao copiar.";
+        feedback.style.color = "#ef4444"; // Vermelho
+        feedback.classList.add('show');
+      }
+    });
   }
-
-  const textArea = document.createElement('textarea');
-  textArea.value = text;
-  textArea.setAttribute('readonly', '');
-  textArea.style.position = 'fixed';
-  textArea.style.opacity = '0';
-  document.body.appendChild(textArea);
-  textArea.select();
-  const copied = document.execCommand('copy');
-  textArea.remove();
-  if (!copied) throw new Error('Clipboard unavailable');
 }
 
-document.querySelectorAll('[data-copy-target]').forEach(button => {
-  button.addEventListener('click', async () => {
-    const value = document.getElementById(button.dataset.copyTarget);
-    const feedback = document.getElementById(button.dataset.feedback);
-    if (!value || !feedback) return;
-
-    const previousTimer = feedbackTimers.get(feedback);
-    if (previousTimer) clearTimeout(previousTimer);
-    feedback.closest('.cs2wb-card')?.querySelectorAll('.btn-copy.is-copied')
-      .forEach(copyButton => copyButton.classList.remove('is-copied'));
-
-    try {
-      await copyText(value.textContent.trim());
-      feedback.textContent = `${button.dataset.copyLabel} copiado.`;
-      feedback.classList.remove('is-error');
-      feedback.classList.add('is-success', 'show');
-      button.classList.add('is-copied');
-    } catch (error) {
-      feedback.textContent = 'Não foi possível copiar. Selecione o valor manualmente.';
-      feedback.classList.remove('is-success');
-      feedback.classList.add('is-error', 'show');
-      button.classList.remove('is-copied');
-    }
-
-    feedbackTimers.set(feedback, setTimeout(() => {
-      feedback.classList.remove('show');
-      button.classList.remove('is-copied');
-    }, 2500));
-  });
-});
+setupCopyButton('btn-copy-crosshair', 'cs2wb-crosshair', 'cs2wb-feedback');
+setupCopyButton('btn-copy-val', 'val-crosshair', 'val-feedback');
 
 /* ===== Integração com Lanyard (Discord Status via WebSocket) ===== */
 const DISCORD_ID = '310952599757127681';
@@ -183,16 +130,6 @@ function applyDiscordData(data) {
 
 (function connectLanyard() {
   let heartbeatInterval;
-  let hasReceivedData = false;
-
-  function showUnavailableStatus() {
-    if (hasReceivedData) return;
-
-    const nameEl = document.getElementById('ds-name');
-    const activityEl = document.getElementById('ds-activity');
-    if (nameEl) nameEl.textContent = 'Zuboozin';
-    if (activityEl) activityEl.textContent = 'Status do Discord indisponível';
-  }
 
   function connect() {
     const ws = new WebSocket('wss://api.lanyard.rest/socket');
@@ -206,14 +143,12 @@ function applyDiscordData(data) {
         ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: DISCORD_ID } }));
       }
       if (msg.op === 0 && (msg.t === 'INIT_STATE' || msg.t === 'PRESENCE_UPDATE')) {
-        hasReceivedData = true;
         applyDiscordData(msg.d);
       }
     });
 
     ws.addEventListener('close', () => {
       clearInterval(heartbeatInterval);
-      showUnavailableStatus();
       setTimeout(connect, 5000);
     });
 
@@ -230,10 +165,6 @@ function applyDiscordData(data) {
 (function advancedSnowEffect() {
   const canvas = document.getElementById('snow');
   if (!canvas) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    canvas.hidden = true;
-    return;
-  }
   const ctx = canvas.getContext('2d');
 
   let width, height;
@@ -409,57 +340,21 @@ function applyDiscordData(data) {
   });
 })();
 
-/* ===== Otimização de Vídeos (carregamento sob demanda) ===== */
+/* ===== Otimização de Vídeos (Play/Pause no Scroll) ===== */
 const optimizeVideos = () => {
-  const videos = document.querySelectorAll('[data-video]');
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const saveData = navigator.connection?.saveData === true;
-
-  // Os posters preservam o visual sem baixar dezenas de MB para quem
-  // prefere menos movimento ou ativou a economia de dados.
-  if (reducedMotion || saveData) {
-    videos.forEach(video => video.pause());
-    return;
-  }
-
-  const loadVideo = (video) => {
-    if (video.dataset.loaded === 'true') return;
-
-    video.querySelectorAll('source[data-src]').forEach(source => {
-      source.src = source.dataset.src;
-      source.removeAttribute('data-src');
-    });
-    video.dataset.loaded = 'true';
-    video.load();
-  };
-
-  const updatePlayback = (video) => {
-    if (document.hidden || video.dataset.inView !== 'true') {
-      video.pause();
-      return;
-    }
-
-    loadVideo(video);
-    video.play().catch(() => {
-      // O poster continua visível se o navegador bloquear autoplay.
-    });
-  };
+  const allVideos = document.querySelectorAll('video');
 
   const videoObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      entry.target.dataset.inView = String(entry.isIntersecting);
-      updatePlayback(entry.target);
+      if (entry.isIntersecting) {
+        entry.target.play();
+      } else {
+        entry.target.pause();
+      }
     });
-  }, {
-    threshold: 0.01,
-    rootMargin: '300px 0px',
-  });
+  }, { threshold: 0.1 });
 
-  videos.forEach(video => videoObserver.observe(video));
-
-  document.addEventListener('visibilitychange', () => {
-    videos.forEach(updatePlayback);
-  });
+  allVideos.forEach(video => videoObserver.observe(video));
 };
 
 document.addEventListener('DOMContentLoaded', optimizeVideos);
@@ -468,20 +363,11 @@ document.addEventListener('DOMContentLoaded', optimizeVideos);
 const themeToggleBtn = document.getElementById('theme-toggle');
 
 if (themeToggleBtn) {
-  const updateThemeButton = (theme) => {
-    const isDark = theme === 'dark';
-    themeToggleBtn.setAttribute('aria-pressed', String(isDark));
-    themeToggleBtn.setAttribute('aria-label', isDark ? 'Ativar tema claro' : 'Ativar tema escuro');
-  };
-
-  updateThemeButton(document.documentElement.getAttribute('data-theme'));
-
   themeToggleBtn.addEventListener('click', () => {
     let theme = document.documentElement.getAttribute('data-theme');
     let targetTheme = theme === 'dark' ? 'light' : 'dark';
 
     document.documentElement.setAttribute('data-theme', targetTheme);
     localStorage.setItem('theme', targetTheme);
-    updateThemeButton(targetTheme);
   });
 }

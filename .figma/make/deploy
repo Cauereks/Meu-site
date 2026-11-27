@@ -3,7 +3,7 @@ set -euo pipefail
 
 rm -rf dist
 mkdir -p dist
-cp index.html 404.html robots.txt sitemap.xml site.webmanifest dist/
+cp index.html dist/
 cp -R assets images dist/
 
 [[ -d "dist" ]] || {

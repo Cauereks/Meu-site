@@ -188,12 +188,12 @@ const MASCOT_STATES = {
 };
 
 const TOOLTIPS = [
-  'Olá!',
+  'Olá! 👋',
   'Brr, que frio!',
   'Vamos jogar?',
-  'ズブージン!',
+  'ズブージン! ❄️',
   'Tão gelado aqui...',
-  'Clique em mim!',
+  'Click em mim!',
 ];
 
 let mascotState = MASCOT_STATES.IDLE;
@@ -289,14 +289,12 @@ function hideTooltip(wrapper) {
 }
 
 function createMascot() {
-  const wrapper = document.createElement('button');
+  const wrapper = document.createElement('div');
   wrapper.id        = 'snow-mascot';
-  wrapper.type      = 'button';
   wrapper.className = 'snow-mascot snow-mascot--idle';
-  wrapper.setAttribute('aria-label', 'Interagir com o mascote de neve');
+  wrapper.setAttribute('aria-hidden', 'true');
 
-  wrapper.innerHTML = MASCOT_SVG.replace('<svg ', '<svg aria-hidden="true" ')
-    + '<span class="mascot-tooltip" aria-hidden="true"></span>';
+  wrapper.innerHTML = MASCOT_SVG + '<div class="mascot-tooltip"></div>';
   document.body.appendChild(wrapper);
 
   wrapper.addEventListener('mouseenter', () => {
@@ -311,9 +309,6 @@ function createMascot() {
     }, 700);
     hideTooltip(wrapper);
   });
-
-  wrapper.addEventListener('focus', () => showTooltip(wrapper));
-  wrapper.addEventListener('blur', () => hideTooltip(wrapper));
 
   wrapper.addEventListener('click', () => {
     setMascotState(MASCOT_STATES.JUMPING);
@@ -339,14 +334,10 @@ function checkSpotifyState() {
    INIT
    =================================================== */
 document.addEventListener('DOMContentLoaded', () => {
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   initCardIce();
+  initSectionFreeze();
   createMascot();
 
-  if (reducedMotion) return;
-
-  initSectionFreeze();
   ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'].forEach(evt => {
     document.addEventListener(evt, resetSleepTimer, { passive: true });
   });
