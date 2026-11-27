@@ -7,7 +7,7 @@
   <title>ズブージン | 雪</title>
   <meta name="description"
     content="Site oficial de Cauê com tema neve: fundo branco e acentos azuis. Setup, downloads e redes sociais." />
-  <meta name="color-scheme" content="light" />
+  <meta name="color-scheme" content="light dark" />
   <meta name="theme-color" content="#187bff" />
 
   <meta property="og:title" content="Zuboozin | Hub">
@@ -31,6 +31,7 @@
 </head>
 
 <body>
+  <a class="skip-link" href="#conteudo-principal">Pular para o conteúdo principal</a>
   <canvas id="snow" aria-hidden="true"></canvas>
 
   <header class="header">
@@ -42,13 +43,16 @@
         <a href="#cs2">CS2</a>
         <a href="#valorant">Valorant</a>
 
-        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Alternar Tema">
+        <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="Ativar tema escuro"
+          aria-pressed="false">
           <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            aria-hidden="true">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
           </svg>
           <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            aria-hidden="true">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
             <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -61,7 +65,8 @@
           </svg>
         </button>
       </nav>
-      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-principal">
+      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false"
+        aria-controls="nav-principal">
         <svg class="icon-hamburger" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="22" height="22"
           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
           stroke-linejoin="round">
@@ -79,9 +84,10 @@
     </div>
   </header>
 
-  <main>
+  <main id="conteudo-principal" tabindex="-1">
     <section id="inicio" class="hero">
-      <video class="hero__video" muted loop playsinline preload="none" poster="images/hero-poster.jpg" data-video>
+      <video class="hero__video" muted loop playsinline preload="none" poster="images/hero-poster.jpg" data-video
+        aria-hidden="true" tabindex="-1">
         <source data-src="assets/video/Background_1.mp4" type="video/mp4" />
       </video>
       <div class="hero__frost" aria-hidden="true"></div>
@@ -116,16 +122,16 @@
             </a>
           </div>
 
-          <div id="discord-status" class="discord-status">
+          <div id="discord-status" class="discord-status" role="status" aria-live="polite" aria-atomic="true">
             <div class="ds-avatar">
-              <img id="ds-pfp" src="" alt="Discord Avatar" style="display: none;">
-              <img id="ds-decoration" class="ds-decoration" src="" alt="Avatar Decoration" style="display: none;">
-              <div id="ds-indicator" class="ds-indicator offline"></div>
+              <img id="ds-pfp" src="" alt="Avatar do Discord de Zuboozin" style="display: none;">
+              <img id="ds-decoration" class="ds-decoration" src="" alt="" aria-hidden="true" style="display: none;">
+              <div id="ds-indicator" class="ds-indicator offline" aria-hidden="true"></div>
             </div>
             <div class="ds-info">
               <div class="ds-name-row">
                 <span id="ds-name" class="ds-name">Carregando status...</span>
-                <div id="ds-devices" class="ds-devices"></div>
+                <div id="ds-devices" class="ds-devices" aria-hidden="true"></div>
               </div>
               <span id="ds-activity" class="ds-activity">Conectando ao Discord</span>
             </div>
@@ -152,7 +158,7 @@
             </header>
             <hr class="cs2wb-sep-line" />
             <p class="cs2wb-settings-title" aria-hidden="true">SETTINGS</p>
-            <dl class="cs2wb-grid" role="list">
+            <dl class="cs2wb-grid">
               <div class="cs2wb-row">
                 <dt>SENSITIVITY</dt>
                 <dd>2.5</dd>
@@ -170,9 +176,10 @@
                 <dd>
                   <div class="cs2wb-cross">
                     <code id="cs2wb-crosshair">CSGO-BQYmk-u2stB-CkDOk-AKOY9-WsdqA</code>
-                    <button id="btn-copy-crosshair" class="btn-copy" aria-label="Copiar código da mira" title="Copiar">
+                    <button id="btn-copy-crosshair" class="btn-copy" type="button"
+                      aria-label="Copiar código da mira do CS2" title="Copiar">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                       </svg>
@@ -193,7 +200,7 @@
             </header>
             <hr class="cs2wb-sep-line" />
             <p class="cs2wb-settings-title" aria-hidden="true">SETTINGS</p>
-            <dl class="cs2wb-grid" role="list">
+            <dl class="cs2wb-grid">
               <div class="cs2wb-row">
                 <dt>SENSITIVITY</dt>
                 <dd>1</dd>
@@ -211,9 +218,10 @@
                 <dd>
                   <div class="cs2wb-cross">
                     <code id="val-crosshair">0;P;c;4;o;1;f;0;0l;5;0v;5;0a;1;0f;0;1l;0;1v;0;1o;13;1a;0;1m;0;1f;0</code>
-                    <button id="btn-copy-val" class="btn-copy" aria-label="Copiar código da mira" title="Copiar">
+                    <button id="btn-copy-val" class="btn-copy" type="button"
+                      aria-label="Copiar código da mira do Valorant" title="Copiar">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                       </svg>
@@ -229,7 +237,8 @@
     </section>
 
     <section id="setup" class="section setup-video-section">
-      <video class="setup__video" muted loop playsinline preload="none" poster="images/setup-poster.jpg" data-video>
+      <video class="setup__video" muted loop playsinline preload="none" poster="images/setup-poster.jpg" data-video
+        aria-hidden="true" tabindex="-1">
         <source data-src="assets/video/0319.mp4" type="video/mp4" />
       </video>
       <div class="setup__overlay" aria-hidden="true"></div>
@@ -415,7 +424,7 @@
         <div class="social-grid">
           <a href="https://www.youtube.com/@zuboozin" target="_blank" rel="noopener noreferrer" class="social-card">
             <span class="social-icon youtube">
-              <svg viewBox="0 0 24 24" fill="currentColor">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path
                   d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
               </svg>
@@ -424,7 +433,7 @@
           </a>
           <a href="https://www.twitch.tv/zuboozin" target="_blank" rel="noopener noreferrer" class="social-card">
             <span class="social-icon twitch">
-              <svg viewBox="0 0 24 24" fill="currentColor">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path
                   d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z" />
               </svg>
@@ -434,7 +443,7 @@
           <a href="https://steamcommunity.com/id/zuboozin" target="_blank" rel="noopener noreferrer"
             class="social-card">
             <span class="social-icon steam">
-              <svg viewBox="0 0 16 16" fill="currentColor">
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
                 <path
                   d="M.329 10.333A8.01 8.01 0 0 0 7.99 16C12.414 16 16 12.418 16 8s-3.586-8-8.009-8A8.006 8.006 0 0 0 0 7.468l.003.006 4.304 1.769A2.2 2.2 0 0 1 5.62 8.88l1.96-2.844-.001-.04a3.046 3.046 0 0 1 3.042-3.043 3.046 3.046 0 0 1 3.042 3.043 3.047 3.047 0 0 1-3.111 3.044l-2.804 2a2.223 2.223 0 0 1-3.075 2.11 2.22 2.22 0 0 1-1.312-1.568L.33 10.333Z" />
                 <path
@@ -451,7 +460,7 @@
   <footer class="footer">
     <div class="container footer__inner">
       <p>© <span id="year"></span> Zuboozin</p>
-      <a class="backtotop" href="#inicio">↑</a>
+      <a class="backtotop" href="#inicio" aria-label="Voltar ao início">↑</a>
     </div>
   </footer>
 

@@ -62,7 +62,9 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
       const target = document.querySelector(id);
       if (target) {
         e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+        if (link.classList.contains('skip-link')) target.focus({ preventScroll: true });
       }
     }
   });
@@ -78,14 +80,16 @@ function setupCopyButton(btnId, codeId, feedbackId) {
     btn.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(code.textContent.trim());
-        feedback.textContent = "✓ Código da mira copiado!";
-        feedback.style.color = "#10b981"; // Verde
+        feedback.textContent = "Código da mira copiado.";
+        feedback.classList.remove('is-error');
+        feedback.classList.add('is-success');
         feedback.classList.add('show');
 
         setTimeout(() => feedback.classList.remove('show'), 2500);
       } catch (err) {
         feedback.textContent = "Erro ao copiar.";
-        feedback.style.color = "#ef4444"; // Vermelho
+        feedback.classList.remove('is-success');
+        feedback.classList.add('is-error');
         feedback.classList.add('show');
       }
     });
@@ -156,6 +160,16 @@ function applyDiscordData(data) {
 
 (function connectLanyard() {
   let heartbeatInterval;
+  let hasReceivedData = false;
+
+  function showUnavailableStatus() {
+    if (hasReceivedData) return;
+
+    const nameEl = document.getElementById('ds-name');
+    const activityEl = document.getElementById('ds-activity');
+    if (nameEl) nameEl.textContent = 'Zuboozin';
+    if (activityEl) activityEl.textContent = 'Status do Discord indisponível';
+  }
 
   function connect() {
     const ws = new WebSocket('wss://api.lanyard.rest/socket');
@@ -169,12 +183,14 @@ function applyDiscordData(data) {
         ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: DISCORD_ID } }));
       }
       if (msg.op === 0 && (msg.t === 'INIT_STATE' || msg.t === 'PRESENCE_UPDATE')) {
+        hasReceivedData = true;
         applyDiscordData(msg.d);
       }
     });
 
     ws.addEventListener('close', () => {
       clearInterval(heartbeatInterval);
+      showUnavailableStatus();
       setTimeout(connect, 5000);
     });
 
@@ -191,6 +207,10 @@ function applyDiscordData(data) {
 (function advancedSnowEffect() {
   const canvas = document.getElementById('snow');
   if (!canvas) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    canvas.hidden = true;
+    return;
+  }
   const ctx = canvas.getContext('2d');
 
   let width, height;
@@ -425,11 +445,20 @@ document.addEventListener('DOMContentLoaded', optimizeVideos);
 const themeToggleBtn = document.getElementById('theme-toggle');
 
 if (themeToggleBtn) {
+  const updateThemeButton = (theme) => {
+    const isDark = theme === 'dark';
+    themeToggleBtn.setAttribute('aria-pressed', String(isDark));
+    themeToggleBtn.setAttribute('aria-label', isDark ? 'Ativar tema claro' : 'Ativar tema escuro');
+  };
+
+  updateThemeButton(document.documentElement.getAttribute('data-theme'));
+
   themeToggleBtn.addEventListener('click', () => {
     let theme = document.documentElement.getAttribute('data-theme');
     let targetTheme = theme === 'dark' ? 'light' : 'dark';
 
     document.documentElement.setAttribute('data-theme', targetTheme);
     localStorage.setItem('theme', targetTheme);
+    updateThemeButton(targetTheme);
   });
 }
