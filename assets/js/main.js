@@ -340,21 +340,57 @@ function applyDiscordData(data) {
   });
 })();
 
-/* ===== Otimização de Vídeos (Play/Pause no Scroll) ===== */
+/* ===== Otimização de Vídeos (carregamento sob demanda) ===== */
 const optimizeVideos = () => {
-  const allVideos = document.querySelectorAll('video');
+  const videos = document.querySelectorAll('[data-video]');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const saveData = navigator.connection?.saveData === true;
+
+  // Os posters preservam o visual sem baixar dezenas de MB para quem
+  // prefere menos movimento ou ativou a economia de dados.
+  if (reducedMotion || saveData) {
+    videos.forEach(video => video.pause());
+    return;
+  }
+
+  const loadVideo = (video) => {
+    if (video.dataset.loaded === 'true') return;
+
+    video.querySelectorAll('source[data-src]').forEach(source => {
+      source.src = source.dataset.src;
+      source.removeAttribute('data-src');
+    });
+    video.dataset.loaded = 'true';
+    video.load();
+  };
+
+  const updatePlayback = (video) => {
+    if (document.hidden || video.dataset.inView !== 'true') {
+      video.pause();
+      return;
+    }
+
+    loadVideo(video);
+    video.play().catch(() => {
+      // O poster continua visível se o navegador bloquear autoplay.
+    });
+  };
 
   const videoObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.play();
-      } else {
-        entry.target.pause();
-      }
+      entry.target.dataset.inView = String(entry.isIntersecting);
+      updatePlayback(entry.target);
     });
-  }, { threshold: 0.1 });
+  }, {
+    threshold: 0.01,
+    rootMargin: '300px 0px',
+  });
 
-  allVideos.forEach(video => videoObserver.observe(video));
+  videos.forEach(video => videoObserver.observe(video));
+
+  document.addEventListener('visibilitychange', () => {
+    videos.forEach(updatePlayback);
+  });
 };
 
 document.addEventListener('DOMContentLoaded', optimizeVideos);
