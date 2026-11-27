@@ -4,28 +4,54 @@ if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
 
-// Menu mobile Animado
+// Menu mobile
 const menuToggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.nav');
 
 if (menuToggle && nav) {
-  nav.style.display = '';
+  const mobileMenu = window.matchMedia('(max-width: 900px)');
+
+  const setMenuState = (isOpen, returnFocus = false) => {
+    const shouldOpen = mobileMenu.matches && isOpen;
+
+    nav.classList.toggle('nav--open', shouldOpen);
+    nav.inert = mobileMenu.matches && !shouldOpen;
+    menuToggle.setAttribute('aria-expanded', String(shouldOpen));
+    menuToggle.setAttribute('aria-label', shouldOpen ? 'Fechar menu' : 'Abrir menu');
+    document.body.classList.toggle('menu-open', shouldOpen);
+
+    if (!shouldOpen && returnFocus) menuToggle.focus();
+  };
+
+  setMenuState(false);
 
   menuToggle.addEventListener('click', () => {
-    const isOpen = nav.classList.toggle('nav--open');
-    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+    setMenuState(!nav.classList.contains('nav--open'));
   });
 
   nav.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
-      if (window.innerWidth <= 900) {
-        nav.classList.remove('nav--open');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        menuToggle.setAttribute('aria-label', 'Abrir menu');
-      }
+      if (mobileMenu.matches) setMenuState(false);
     });
   });
+
+  document.addEventListener('pointerdown', event => {
+    if (
+      nav.classList.contains('nav--open')
+      && !nav.contains(event.target)
+      && !menuToggle.contains(event.target)
+    ) {
+      setMenuState(false);
+    }
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && nav.classList.contains('nav--open')) {
+      setMenuState(false, true);
+    }
+  });
+
+  mobileMenu.addEventListener('change', () => setMenuState(false));
 }
 
 // Scroll suave
