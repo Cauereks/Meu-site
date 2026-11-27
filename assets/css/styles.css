@@ -368,6 +368,12 @@ body {
   color: #0c2a55;
 }
 
+.section__intro {
+  max-width: 620px;
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
 /* ====== Cards CS2 & Valorant ====== */
 :root {
   --wb-bg: #ffffff;
@@ -539,6 +545,7 @@ body {
   min-width: 0;
   text-align: right;
   overflow-wrap: anywhere;
+  width: min(68%, 270px);
 }
 
 /* ===== Footer ===== */
@@ -575,6 +582,54 @@ body {
   --sc-muted: var(--muted);
   --sc-accent: var(--primary-600);
   --sc-frost: rgba(24, 123, 255, .08);
+}
+
+.setup-groups {
+  display: grid;
+  gap: 42px;
+}
+
+.setup-group {
+  min-width: 0;
+}
+
+.setup-group__head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.setup-group__index {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .1);
+  color: #dcecff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  backdrop-filter: blur(10px);
+}
+
+.setup-group__head h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.25;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, .35);
+}
+
+.setup-group__head p {
+  margin: 3px 0 0;
+  color: rgba(231, 241, 255, .78);
+  font-size: 13px;
+  line-height: 1.4;
 }
 
 .setup-compact {
@@ -680,15 +735,22 @@ body {
   .sc-list li { font-size: 12.75px; }
 }
 
-/* ===== Botão Copiar e Feedback ===== */
-.cs2wb-cross {
+/* ===== Botões de copiar configurações e feedback ===== */
+.cs2wb-value {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 8px;
   min-width: 0;
+  width: 100%;
 }
 
-.cs2wb-cross code {
+.cs2wb-value > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.cs2wb-value code {
   background: var(--bg-2);
   padding: 4px 8px;
   border-radius: 6px;
@@ -720,6 +782,12 @@ body {
   background: var(--wb-primary);
   color: #fff;
   transform: translateY(-1px);
+}
+
+.btn-copy.is-copied {
+  background: #067647;
+  border-color: #067647;
+  color: #fff;
 }
 
 .cs2wb-feedback {
@@ -1116,6 +1184,10 @@ body {
   text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
+.setup-video-section .section__intro {
+  color: rgba(236, 245, 255, .82);
+}
+
 /* Ajuste para ícones SVG na seção Setup */
 .sc-ic .svg-icon {
   width: 100%;
@@ -1194,7 +1266,7 @@ body {
 [data-theme="dark"] .footer {
   background: var(--bg);
 }
-[data-theme="dark"] .cs2wb-cross code {
+[data-theme="dark"] .cs2wb-value code {
   background: var(--surface-2);
 }
 [data-theme="dark"] .cs2wb-rank-badge {
@@ -1257,6 +1329,10 @@ body {
 @media (max-width: 700px) {
   .section {
     padding: 56px 0;
+  }
+
+  .setup-groups {
+    gap: 34px;
   }
 
   .games-grid {
@@ -1362,6 +1438,7 @@ body {
 
   .cs2wb-row dd {
     flex: 1;
+    width: auto;
   }
 
   .cs2wb-row--crosshair {
@@ -1402,7 +1479,7 @@ body,
 .cs2wb-row,
 .cs2wb-row dd,
 .cs2wb-row dt,
-.cs2wb-cross code,
+.cs2wb-value code,
 .cs2wb-rank-badge,
 .section__head h2,
 h1, h2, h3, p {

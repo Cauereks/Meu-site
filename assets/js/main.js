@@ -70,34 +70,57 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-/* ===== Funcionalidade: Copiar Mira CS2 e Valorant ===== */
-function setupCopyButton(btnId, codeId, feedbackId) {
-  const btn = document.getElementById(btnId);
-  const code = document.getElementById(codeId);
-  const feedback = document.getElementById(feedbackId);
+/* ===== Copiar configurações de CS2 e Valorant ===== */
+const feedbackTimers = new WeakMap();
 
-  if (btn && code && feedback) {
-    btn.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(code.textContent.trim());
-        feedback.textContent = "Código da mira copiado.";
-        feedback.classList.remove('is-error');
-        feedback.classList.add('is-success');
-        feedback.classList.add('show');
-
-        setTimeout(() => feedback.classList.remove('show'), 2500);
-      } catch (err) {
-        feedback.textContent = "Erro ao copiar.";
-        feedback.classList.remove('is-success');
-        feedback.classList.add('is-error');
-        feedback.classList.add('show');
-      }
-    });
+async function copyText(text) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text);
+    return;
   }
+
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
+  textArea.setAttribute('readonly', '');
+  textArea.style.position = 'fixed';
+  textArea.style.opacity = '0';
+  document.body.appendChild(textArea);
+  textArea.select();
+  const copied = document.execCommand('copy');
+  textArea.remove();
+  if (!copied) throw new Error('Clipboard unavailable');
 }
 
-setupCopyButton('btn-copy-crosshair', 'cs2wb-crosshair', 'cs2wb-feedback');
-setupCopyButton('btn-copy-val', 'val-crosshair', 'val-feedback');
+document.querySelectorAll('[data-copy-target]').forEach(button => {
+  button.addEventListener('click', async () => {
+    const value = document.getElementById(button.dataset.copyTarget);
+    const feedback = document.getElementById(button.dataset.feedback);
+    if (!value || !feedback) return;
+
+    const previousTimer = feedbackTimers.get(feedback);
+    if (previousTimer) clearTimeout(previousTimer);
+    feedback.closest('.cs2wb-card')?.querySelectorAll('.btn-copy.is-copied')
+      .forEach(copyButton => copyButton.classList.remove('is-copied'));
+
+    try {
+      await copyText(value.textContent.trim());
+      feedback.textContent = `${button.dataset.copyLabel} copiado.`;
+      feedback.classList.remove('is-error');
+      feedback.classList.add('is-success', 'show');
+      button.classList.add('is-copied');
+    } catch (error) {
+      feedback.textContent = 'Não foi possível copiar. Selecione o valor manualmente.';
+      feedback.classList.remove('is-success');
+      feedback.classList.add('is-error', 'show');
+      button.classList.remove('is-copied');
+    }
+
+    feedbackTimers.set(feedback, setTimeout(() => {
+      feedback.classList.remove('show');
+      button.classList.remove('is-copied');
+    }, 2500));
+  });
+});
 
 /* ===== Integração com Lanyard (Discord Status via WebSocket) ===== */
 const DISCORD_ID = '310952599757127681';
