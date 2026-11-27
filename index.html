@@ -4,16 +4,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ズブージン | 雪</title>
+  <title>Zuboozin | Setup competitivo de CS2 e Valorant</title>
   <meta name="description"
-    content="Site oficial de Cauê com tema neve: fundo branco e acentos azuis. Setup, downloads e redes sociais." />
+    content="Conheça o setup gamer, as configurações de CS2 e Valorant e os canais oficiais de Zuboozin." />
+  <meta name="author" content="Zuboozin" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="color-scheme" content="light dark" />
   <meta name="theme-color" content="#187bff" />
 
-  <meta property="og:title" content="Zuboozin | Hub">
-  <meta property="og:description" content="Site oficial de Cauê. Setup, downloads e redes sociais.">
-  <meta property="og:image" content="images/rion-snow.png">
-  <meta property="og:url" content="https://cauereks.github.io/Meu-site/">
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Zuboozin" />
+  <meta property="og:title" content="Zuboozin | Setup competitivo de CS2 e Valorant" />
+  <meta property="og:description"
+    content="Setup gamer, configurações competitivas e canais oficiais de Zuboozin." />
+  <meta property="og:url" content="https://cauereks.github.io/Meu-site/" />
+  <meta property="og:image" content="https://cauereks.github.io/Meu-site/images/og-zuboozin.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Zuboozin com referências a setup, CS2 e Valorant" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Zuboozin | Setup competitivo" />
+  <meta name="twitter:description" content="Setup gamer e configurações de CS2 e Valorant." />
+  <meta name="twitter:image" content="https://cauereks.github.io/Meu-site/images/og-zuboozin.jpg" />
+  <meta name="twitter:image:alt" content="Zuboozin com referências a setup, CS2 e Valorant" />
 
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,8 +36,31 @@
     rel="stylesheet" />
 
   <link rel="icon" type="image/svg+xml" href="images/snowflake.svg" />
+  <link rel="canonical" href="https://cauereks.github.io/Meu-site/" />
+  <link rel="manifest" href="site.webmanifest" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="stylesheet" href="assets/css/art.css" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "name": "Zuboozin | Setup competitivo",
+      "url": "https://cauereks.github.io/Meu-site/",
+      "inLanguage": "pt-BR",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Zuboozin",
+        "image": "https://cauereks.github.io/Meu-site/images/rion-snow.png",
+        "knowsAbout": ["CS2", "Valorant", "Gaming hardware", "Streaming"],
+        "sameAs": [
+          "https://www.youtube.com/@zuboozin",
+          "https://www.twitch.tv/zuboozin",
+          "https://steamcommunity.com/id/zuboozin"
+        ]
+      }
+    }
+  </script>
 
   <script>
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -38,10 +76,10 @@
     <div class="container header__inner">
       <a class="logo" href="#inicio" aria-label="Voltar ao início">Zuboozin</a>
       <nav class="nav" id="nav-principal" aria-label="Principal">
-        <a href="#setup">Setup</a>
-        <a href="#sociais">Sociais</a>
         <a href="#cs2">CS2</a>
         <a href="#valorant">Valorant</a>
+        <a href="#setup">Setup</a>
+        <a href="#sociais">Sociais</a>
 
         <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="Ativar tema escuro"
           aria-pressed="false">
@@ -140,16 +178,25 @@
       </div>
 
       <div class="hero__avatar-container--boundary">
-        <img src="images/rion-snow.png" alt="Avatar Rion Snow Zuboozin" class="hero__avatar--boundary">
+        <picture>
+          <source srcset="images/rion-snow.webp" type="image/webp">
+          <img src="images/rion-snow.png" width="1100" height="1100" alt="Avatar Rion Snow Zuboozin"
+            class="hero__avatar--boundary" decoding="async" fetchpriority="high">
+        </picture>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section games-section" aria-labelledby="configuracoes-title">
       <div class="container">
+        <div class="section__head games-section__head">
+          <p class="section__eyebrow">Configurações competitivas</p>
+          <h2 id="configuracoes-title">Pronto para entrar no servidor</h2>
+          <p class="section__intro">Valores usados no CS2 e no Valorant, com cópia rápida para facilitar o ajuste.</p>
+        </div>
         <div class="games-grid">
           <div id="cs2" class="cs2wb-card" data-tilt data-reveal>
             <header class="cs2wb-head">
-              <h2>CS2</h2>
+              <h3>CS2</h3>
               <div class="cs2wb-ranks">
                 <span class="cs2wb-rank-badge" title="Premier / MM">Global Elite</span>
                 <span class="cs2wb-sep">/</span>
@@ -233,7 +280,7 @@
 
           <div id="valorant" class="cs2wb-card" data-tilt data-reveal>
             <header class="cs2wb-head">
-              <h2>Valorant</h2>
+              <h3>Valorant</h3>
               <div class="cs2wb-ranks">
                 <span class="cs2wb-rank-badge val-badge" title="Rank Competitivo">Diamante 2</span>
               </div>
@@ -535,6 +582,7 @@
       <div class="container">
         <div class="section__head">
           <h2>Sociais</h2>
+          <p class="section__intro">Acompanhe transmissões, vídeos e o perfil de jogos de Zuboozin.</p>
         </div>
         <div class="social-grid">
           <a href="https://www.youtube.com/@zuboozin" target="_blank" rel="noopener noreferrer" class="social-card">

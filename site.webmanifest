@@ -1,0 +1,18 @@
+{
+  "name": "Zuboozin | Setup competitivo",
+  "short_name": "Zuboozin",
+  "description": "Setup gamer e configurações competitivas de CS2 e Valorant.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#187bff",
+  "icons": [
+    {
+      "src": "images/snowflake.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

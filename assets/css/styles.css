@@ -368,10 +368,30 @@ body {
   color: #0c2a55;
 }
 
+.section__eyebrow {
+  margin: 0 0 6px;
+  color: var(--primary-600);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
 .section__intro {
   max-width: 620px;
   margin: 8px 0 0;
   color: var(--muted);
+}
+
+.games-section__head {
+  max-width: 660px;
+  margin-inline: auto;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.games-section__head .section__intro {
+  margin-inline: auto;
 }
 
 /* ====== Cards CS2 & Valorant ====== */
@@ -454,7 +474,7 @@ body {
   margin-bottom: 10px;
 }
 
-.cs2wb-head h2 {
+.cs2wb-head h3 {
   margin: 0;
   font-size: 20px;
   line-height: 1.1;
@@ -984,6 +1004,10 @@ body {
   height: auto;
   opacity: 0.95;
   transition: opacity 0.3s ease;
+}
+
+.hero__avatar-container--boundary picture {
+  display: block;
 }
 
 .hero__avatar-container--boundary:hover {
